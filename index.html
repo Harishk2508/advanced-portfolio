@@ -1,0 +1,1941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harish K - ML/NLP Engineer Portfolio</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- CSS Modules -->
+    <link rel="stylesheet" href="assets/css/common.css">
+    <link rel="stylesheet" href="assets/css/hero.css">
+    <link rel="stylesheet" href="assets/css/about.css">
+    <link rel="stylesheet" href="assets/css/contact.css">
+    <link rel="stylesheet" href="assets/css/projects.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/skills.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">HARISH K</span>
+                <div class="logo-animation"></div>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#hero" class="nav-link active" data-section="hero"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#about" class="nav-link" data-section="about"><i class="fas fa-user"></i> About</a></li>
+                <li><a href="#projects" class="nav-link" data-section="projects"><i class="fas fa-tasks"></i> Projects</a></li>
+                <li><a href="#skills" class="nav-link" data-section="skills"><i class="fas fa-tools"></i> Skills</a></li>
+                <!-- <li><a href="certifications.html" class="nav-link external-link" data-section="certifications"><i class="fas fa-certificate"></i> Certifications</a></li> -->
+                <li><a href="#contact" class="nav-link" data-section="contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Loading Spinner -->
+    <div class="loading-container" id="loading">
+        <div class="loading-spinner">
+            <div class="spinner-ring"></div>
+            <div class="spinner-ring"></div>
+            <div class="spinner-ring"></div>
+            <div class="spinner-ring"></div>
+        </div>
+        <p class="loading-text">Loading Portfolio...</p>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+        <!-- Hero Section -->
+        <section id="hero" class="section-container active">
+            <div class="hero-content">
+                <div class="hero-container">
+                    <div class="hero-layout">
+                        <!-- Text Content -->
+                        <div class="hero-text">
+                            <div class="hero-badge">
+                                <i class="fas fa-code"></i>
+                                <span>Available for Opportunities</span>
+                            </div>
+                            
+                            <h1 class="hero-title">
+                                <span class="greeting">Hello, I'm</span>
+                                <span class="name typing-animation">Harish K</span>
+                            </h1>
+                            
+                            <h2 class="hero-subtitle">
+                                <span class="gradient-text">ML/NLP Engineer & AI Researcher</span>
+                            </h2>
+                            
+                            <p class="hero-description">
+                                Passionate about creating intelligent solutions with Machine Learning, 
+                                Natural Language Processing, and Deep Learning technologies. 
+                                <strong>640+ LeetCode problems solved</strong> and <strong>10+ competitions won</strong> 
+                                with expertise in medical AI and research.
+                            </p>
+                            
+                            <!-- Quick Stats
+                            <div class="hero-stats">
+                                <div class="stat-item">
+                                    <div class="stat-number">640</div>
+                                    <div class="stat-label">Leetcode Problems Solved</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">10</div>
+                                    <div class="stat-label">Events Won</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">8.6</div>
+                                    <div class="stat-label">CGPA</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">12</div>
+                                    <div class="stat-label">Projects</div>
+                                </div>
+                                <div class="stats-controls">
+                                    <button id="refresh-leetcode-stats" class="btn btn-secondary btn-small">
+                                        <i class="fas fa-sync-alt"></i>
+                                        <span>Refresh LeetCode Stats</span>
+                                    </button>
+                                </div>
+                            </div> -->
+                            
+                            <!-- Action Buttons -->
+                            <div class="hero-buttons">
+                                <button class="btn btn-primary" data-navigate="projects">
+                                    <span>View My Work</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                                <button class="btn btn-outline" data-navigate="contact">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>Get In Touch</span>
+                                </button>
+                                <a href="assets/resume/Harish_K_Resume.pdf" class="btn btn-secondary" download>
+                                    <i class="fas fa-download"></i>
+                                    <span>Download CV</span>
+                                </a>
+                            </div>
+                            
+                            <!-- Social Links -->
+                            <div class="hero-social">
+                                <a href="https://linkedin.com/in/harish-kumar-kingston-pydev" target="_blank" class="social-link">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                <a href="https://github.com/Harishk2508" target="_blank" class="social-link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="mailto:harishkmlengineer@gmail.com" class="social-link">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                                <a href="tel:+917558152169" class="social-link">
+                                    <i class="fas fa-phone"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Profile Image -->
+                        <div class="hero-image">
+                            <div class="profile-container">
+                                <div class="profile-wrapper">
+                                    <img src="assets/images/profile_img.png" alt="Harish K - ML/NLP Engineer" class="profile-image">
+                                    <div class="profile-border"></div>
+                                    
+                                    <!-- Floating Tech Icons -->
+                                    <div class="floating-icons">
+                                        <div class="tech-icon" style="--delay: 0s; --position: 1;">
+                                            <i class="fab fa-python"></i>
+                                        </div>
+                                        <div class="tech-icon" style="--delay: 1s; --position: 2;">
+                                            <i class="fas fa-brain"></i>
+                                        </div>
+                                        <div class="tech-icon" style="--delay: 2s; --position: 3;">
+                                            <i class="fas fa-robot"></i>
+                                        </div>
+                                        <div class="tech-icon" style="--delay: 3s; --position: 4;">
+                                            <i class="fas fa-chart-line"></i>
+                                        </div>
+                                        <div class="tech-icon" style="--delay: 4s; --position: 5;">
+                                            <i class="fab fa-java"></i>
+                                        </div>
+                                        <div class="tech-icon" style="--delay: 5s; --position: 6;">
+                                            <i class="fas fa-database"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Visitor Counter -->
+                <div class="visitor-counter" id="visitor-counter">
+                    <i class="fas fa-eye"></i>
+                    <span id="visitor-count">1247</span>
+                    <span>visitors</span>
+                </div>
+                
+                <!-- Scroll Indicator
+                <div class="scroll-indicator" data-navigate="about">
+                    <div class="scroll-arrow">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <span class="scroll-text">Scroll to explore</span>
+                </div> -->
+                
+                <!-- Background Elements -->
+                <div class="hero-background">
+                    <div class="bg-element bg-element-1"></div>
+                    <div class="bg-element bg-element-2"></div>
+                    <div class="bg-element bg-element-3"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section Content -->
+<div id="about" class="about-content">
+    <div class="about-container">
+        <!-- Section Header -->
+        <div class="section-header">
+            <div class="section-badge">
+                <i class="fas fa-user"></i>
+                <span>Get to know me</span>
+            </div>
+            <h2 class="section-title">About Me</h2>
+            <div class="section-line"></div>
+            <p class="section-subtitle">
+                My journey from academic excellence to AI leadership
+            </p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="about-main">
+            <!-- Story Section -->
+            <div class="story-section">
+                <div class="story-container">
+                    <div class="story-header">
+                        <h3>My Journey into AI</h3>
+                        <div class="story-accent"></div>
+                    </div>
+                    
+                    <div class="story-content">
+                        <p class="story-intro">
+                            My journey into the world of <span class="highlight">Artificial Intelligence</span> began during my early college days at Kingston Engineering College, where I discovered the fascinating intersection of mathematics, programming, and real-world problem-solving.
+                        </p>
+                        
+                        <p class="story-main">
+                            As a <span class="highlight">Computer Science Engineering</span> student with a <strong>CGPA of 8.6</strong>, I've been captivated by the potential of Machine Learning and Natural Language Processing to transform industries. From developing deep neural networks for medical diagnosis to fine-tuning large language models for healthcare applications, I've consistently pushed the boundaries of what's possible with AI.
+                        </p>
+                        
+                        <p class="story-achievement">
+                            My passion extends beyond academics into competitive programming and research. Having solved over <span class="highlight">640+ LeetCode problems</span> and won <span class="highlight">10+ technical competitions</span>, I believe in learning through both theoretical understanding and practical implementation. This approach has led me to complete <span class="highlight">12 major projects</span> and even co-author a research paper published in IJIRT on hybrid AI frameworks for medical applications.
+                        </p>
+                        
+                        <p class="story-future">
+                            Today, as an aspiring <span class="highlight">ML/NLP Engineer</span>, I'm driven by the vision of creating intelligent systems that can understand, learn, and assist humans in solving complex challenges. Whether it's protecting privacy through PII detection systems or advancing medical AI through LLaMA fine-tuning, I'm committed to building technology that makes a meaningful impact.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Timeline Section -->
+            <div class="timeline-section">
+                <div class="timeline-header">
+                    <h3>Key Achievements</h3>
+                    <p>Major milestones in my tech journey</p>
+                </div>
+                
+                <div class="timeline-container">
+                    <!-- 2020 Achievement -->
+                    <div class="timeline-item" data-year="2020">
+                        <div class="timeline-dot">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">2020</div>
+                            <h4>Academic Excellence Era</h4>
+                            <div class="achievements">
+                                <div class="achievement">
+                                    <i class="fas fa-medal"></i>
+                                    <span>Won State Level Mathematical Quiz Competition at VIT University</span>
+                                </div>
+                                <div class="achievement">
+                                    <i class="fas fa-star"></i>
+                                    <span>Scored Centum in 11th Computer Science Public Examination</span>
+                                </div>
+                                <div class="achievement">
+                                    <i class="fas fa-award"></i>
+                                    <span>Secured School First in Public Exam</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2021 Achievement -->
+                    <div class="timeline-item" data-year="2021">
+                        <div class="timeline-dot">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">2021</div>
+                            <h4>Consistent Performance</h4>
+                            <div class="achievements">
+                                <div class="achievement">
+                                    <i class="fas fa-medal"></i>
+                                    <span>Secured School First in Public Exam (Continued Excellence)</span>
+                                </div>
+                                <div class="achievement">
+                                    <i class="fas fa-university"></i>
+                                    <span>Started CSE journey at Kingston Engineering College</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2022 Achievement -->
+                    <div class="timeline-item" data-year="2022">
+                        <div class="timeline-dot">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">2022</div>
+                            <h4>Innovation & IoT Projects</h4>
+                            <div class="achievements">
+                                <div class="achievement">
+                                    <i class="fas fa-trophy"></i>
+                                    <span>Won First Intra College Project Hackathon - Smart Blind Stick IoT Project</span>
+                                </div>
+                                <div class="achievement">
+                                    <i class="fas fa-medal"></i>
+                                    <span>Won 1st Place in Smart Security System (IoT Project) on Science Day</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2023 Achievement -->
+                    <div class="timeline-item" data-year="2023">
+                        <div class="timeline-dot">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">2023</div>
+                            <h4>AI & Full-Stack Development</h4>
+                            <div class="achievements">
+                                <div class="achievement">
+                                    <i class="fas fa-robot"></i>
+                                    <span>Won 3rd Place in Project Expo - AI Doctor (Medical Assistant)</span>
+                                </div>
+                                <div class="achievement">
+                                    <i class="fas fa-code"></i>
+                                    <span>Tech Stack: HTML, CSS, JS, SpringBoot, Python, OpenAI API</span>
+                                </div>
+                                <div class="achievement">
+                                    <i class="fas fa-trophy"></i>
+                                    <span>Won 7+ Symposium Events at Various Inter-College Competitions</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2024 Achievement -->
+                    <div class="timeline-item" data-year="2024">
+                        <div class="timeline-dot">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">2024</div>
+                            <h4>Hackathon & Research</h4>
+                            <div class="achievements">
+                                <div class="achievement">
+                                    <i class="fas fa-rocket"></i>
+                                    <span>Participated in First 24hrs Hackathon at KPR College, Coimbatore</span>
+                                </div>
+                                <div class="achievement">
+                                    <i class="fas fa-target"></i>
+                                    <span>Climbed to Top 50 spots among 250+ projects</span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2025 Achievement -->
+                    <div class="timeline-item milestone" data-year="2025">
+                        <div class="timeline-dot milestone-dot">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="timeline-content milestone-content">
+                            <div class="timeline-year">2025</div>
+                            <h4>Major Milestones & Leadership</h4>
+                            <div class="achievements">
+                                <div class="achievement">
+                                    <i class="fas fa-graduation-cap"></i>
+                                    <span>Completed Final Year Project - AI Medical Diagnosis & Heart Disease Prediction</span>
+                                </div>
+                                <div class="achievement">
+                                    <i class="fas fa-book"></i>
+                                    <span>Published Journal on Medical AI Research</span>
+                                </div>
+                                <div class="achievement milestone-highlight">
+                                    <i class="fas fa-crown"></i>
+                                    <span><strong>Milestone Achievement: Led team to 3rd place at VIT Gravitas AI Hackathon</strong></span>
+                                </div>
+                                <div class="achievement">
+                                    <i class="fas fa-users"></i>
+                                    <span>Team Leader - 50+ teams competition (Sep 27, 2025)</span>
+                                </div>
+                                <div class="achievement">
+                                    <i class="fas fa-rocket"></i>
+                                    <span>Ready to Impact the AI Industry</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Statistics Cards -->
+        <div class="stats-showcase">
+            <div class="stats-header">
+                <h3>Achievements in Numbers</h3>
+                <p>Statistical overview of my journey</p>
+            </div>
+            
+            <div class="stats-grid stagger-animation">
+                <div class="stat-card leetcode-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="stat-number animate-glow" data-target="640">0</div>
+                    <div class="stat-label">LeetCode Problems</div>
+                    <div class="stat-progress">
+                        <div class="progress-bar" data-width="50"></div>
+                    </div>
+                </div>
+                
+                <div class="stat-card events-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-number" data-target="12">0</div>
+                    <div class="stat-label">Events Won</div>
+                    <div class="stat-progress">
+                        <div class="progress-bar" data-width="90"></div>
+                    </div>
+                </div>
+                
+                <div class="stat-card cgpa-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="stat-number" data-target="8.6">0</div>
+                    <div class="stat-label">CGPA</div>
+                    <div class="stat-progress">
+                        <div class="progress-bar" data-width="86"></div>
+                    </div>
+                </div>
+                
+                <div class="stat-card projects-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="stat-number" data-target="10">0</div>
+                    <div class="stat-label">Major Projects</div>
+                    <div class="stat-progress">
+                        <div class="progress-bar" data-width="95"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Background Elements -->
+    <div class="about-background">
+        <div class="bg-pattern bg-pattern-1"></div>
+        <div class="bg-pattern bg-pattern-2"></div>
+    </div>
+</div>
+
+
+        <!-- Projects Section -->
+       <section id="projects" class="section-container">
+    <div class="projects-content">
+        <div class="projects-container">
+            <!-- Section Header -->
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-code"></i>
+                    <span>My Work</span>
+                </div>
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="section-line"></div>
+                <p class="section-subtitle">
+                    A showcase of my expertise in AI, Machine Learning, and Full-Stack Development
+                </p>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-th"></i>
+                    All Projects
+                </button>
+                <button class="filter-btn" data-filter="ai-ml">
+                    <i class="fas fa-brain"></i>
+                    AI/ML
+                </button>
+                <button class="filter-btn" data-filter="web-dev">
+                    <i class="fas fa-globe"></i>
+                    Web Development
+                </button>
+                <button class="filter-btn" data-filter="research">
+                    <i class="fas fa-microscope"></i>
+                    Research
+                </button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="projects-grid">
+                <!-- Portfolio Website -->
+                <div class="project-card featured" data-category="web-dev">
+                    <div class="project-image">
+                        <img src="assets/images/projects/portfolio-website.png" alt="Personal Portfolio Website" class="project-img">
+                    <div class="project-status">
+                            <span class="status-badge featured">Featured</span>
+                            <span class="status-badge new">New</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>Personal Portfolio Website</h3>
+                            <div class="project-period">2025</div>
+                        </div>
+                        <p class="project-description">
+                            Modern, full-featured portfolio website with real-time analytics, LeetCode integration, interactive animations, working contact forms, and comprehensive visitor tracking dashboard.
+                        </p>
+                        <div class="project-highlights">
+                            <div class="highlight-item">
+                                <i class="fas fa-code"></i>
+                                <span>Integration with leetcode</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>working contact form</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Real-time Analytics</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span>Responsive Design</span>
+                            </div>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag web">HTML5</span>
+                            <span class="tech-tag web">CSS3</span>
+                            <span class="tech-tag js">JavaScript</span>
+                            <span class="tech-tag">API</span>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <!-- NEW: Gamified Yoga Website (Featured) -->
+                <div class="project-card featured" data-category="ai-ml web-dev">
+                    <div class="project-image">
+                        <img src="assets/images/projects/yoga-detection.png" alt="Gamified Yoga Detection Website" class="project-img">
+                        <div class="project-status">
+                            <span class="status-badge featured">Featured</span>
+                            <span class="status-badge new">New</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>Gamified Yoga Detection Website</h3>
+                            <div class="project-period">2024 – 2025</div>
+                        </div>
+                        <p class="project-description">
+                            ML-powered pose evaluation platform using Google PoseLandmarker for real-time yoga pose analysis with multiplayer features, automated corrections, and gamified experience.
+                        </p>
+                        <div class="project-highlights">
+                            <div class="highlight-item">
+                                <i class="fas fa-yoga"></i>
+                                <span>Real-time Pose Detection</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-users"></i>
+                                <span>Multiplayer Support</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-gamepad"></i>
+                                <span>Gamified Experience</span>
+                            </div>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag python">Python</span>
+                            <span class="tech-tag ai">PoseLandmarker</span>
+                            <span class="tech-tag web">FastAPI</span>
+                            <span class="tech-tag cv">OpenCV</span>
+                            <span class="tech-tag cloud">Google APIs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Heart Disease Classification Project -->
+                <div class="project-card featured" data-category="ai-ml research">
+                    <div class="project-image">
+                        <img src="assets/images/projects/heart-disease.png" alt="Heart Disease Classification" class="project-img">
+                        <div class="project-status">
+                            <span class="status-badge featured">Featured</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>Heart Disease Severity Classification</h3>
+                            <div class="project-period">Feb 2025 – Apr 2025</div>
+                        </div>
+                        <p class="project-description">
+                            Deep Neural Network achieving 91%+ accuracy for heart disease severity classification using UCI Cleveland dataset with comparative evaluation against Random Forest and Boosting algorithms.
+                        </p>
+                        <div class="project-highlights">
+                            <div class="highlight-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>91%+ Accuracy</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-layer-group"></i>
+                                <span>5-Level Classification</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-microscope"></i>
+                                <span>Research Grade</span>
+                            </div>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag python">Python</span>
+                            <span class="tech-tag ai">TensorFlow</span>
+                            <span class="tech-tag ml">Scikit-learn</span>
+                            <span class="tech-tag data">SMOTE</span>
+                            <span class="tech-tag viz">Matplotlib</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LLaMA 3.2 Fine-Tuning Project -->
+                <div class="project-card featured" data-category="ai-ml research">
+                    <div class="project-image">
+                        <img src="assets/images/projects/finetunning-llama.png" alt="LLaMA Fine-tuning" class="project-img">
+                        <div class="project-status">
+                            <span class="status-badge featured">Featured</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>LLaMA 3.2 Fine-Tuning Implementation</h3>
+                            <div class="project-period">Aug 2024 – Nov 2024</div>
+                        </div>
+                        <p class="project-description">
+                            Fine-tuned LLaMA 3.2 with Unsloth on large-scale medical datasets using LoRA techniques for AI doctor applications, optimizing training efficiency while maintaining accuracy.
+                        </p>
+                        <div class="project-highlights">
+                            <div class="highlight-item">
+                                <i class="fas fa-rocket"></i>
+                                <span>Optimized Performance</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-medical-kit"></i>
+                                <span>Medical AI</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-cogs"></i>
+                                <span>LoRA Techniques</span>
+                            </div>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag ai">LLaMA 3.2</span>
+                            <span class="tech-tag ml">Unsloth</span>
+                            <span class="tech-tag nlp">NLP</span>
+                            <span class="tech-tag cloud">Hugging Face</span>
+                            <span class="tech-tag research">LoRA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Indian PII Detection System -->
+                <div class="project-card" data-category="ai-ml">
+                    <div class="project-image">
+                        <img src="assets/images/projects/pii_detection.png" alt="PII Detection System" class="project-img">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>Indian PII Detection System</h3>
+                            <div class="project-period">Nov 2024 – Feb 2025</div>
+                        </div>
+                        <p class="project-description">
+                            Hybrid NER and regex-based pipeline to detect and classify Indian PII in text data with interactive Streamlit UI for real-time alerting and user consent workflow.
+                        </p>
+                        <div class="project-highlights">
+                            <div class="highlight-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Privacy Protection</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-bolt"></i>
+                                <span>Real-time Processing</span>
+                            </div>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag python">Python</span>
+                            <span class="tech-tag web">Streamlit</span>
+                            <span class="tech-tag ai">Transformers</span>
+                            <span class="tech-tag">Regex</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI-Powered Medical Assistance System -->
+                <div class="project-card" data-category="ai-ml web-dev">
+                    <div class="project-image">
+                        <img src="assets/images/projects/medical-ai.png" alt="Medical AI Assistant" class="project-img">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>AI-Powered Medical Assistance System</h3>
+                            <div class="project-period">2024</div>
+                        </div>
+                        <p class="project-description">
+                            Robust AI-based healthcare assistant using ChatGPT API, delivering accurate, personalized health recommendations with seamless AI-user interaction integration.
+                        </p>
+                        <div class="project-highlights">
+                            <div class="highlight-item">
+                                <i class="fas fa-user-md"></i>
+                                <span>Healthcare AI</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-comments"></i>
+                                <span>Chatbot Integration</span>
+                            </div>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag ai">ChatGPT API</span>
+                            <span class="tech-tag python">Python</span>
+                            <span class="tech-tag web">REST API</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bus Reservation System -->
+                <div class="project-card" data-category="web-dev">
+                    <div class="project-image">
+                        <img src="assets/images/projects/bus-reservation.png" alt="Bus Reservation System" class="project-img">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>Bus Reservation System</h3>
+                            <div class="project-period">2024</div>
+                        </div>
+                        <p class="project-description">
+                            Scalable, user-centric bus reservation platform with Django, implementing role-based access control and automated email notifications for enhanced user experience.
+                        </p>
+                        <div class="project-highlights">
+                            <div class="highlight-item">
+                                <i class="fas fa-users-cog"></i>
+                                <span>Role-Based Access</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>Email Automation</span>
+                            </div>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag python">Python</span>
+                            <span class="tech-tag web">Django</span>
+                            <span class="tech-tag db">SQL</span>
+                            <span class="tech-tag">Bootstrap</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Vehicle Detection -->
+                <div class="project-card" data-category="ai-ml">
+                    <div class="project-image">
+                        <img src="assets/images/projects/vehicle-detection.jpg" alt="Vehicle Detection" class="project-img">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>AI Vehicle Detection and Classification</h3>
+                            <div class="project-period">2024</div>
+                        </div>
+                        <p class="project-description">
+                            High-performance vehicle detection model using YOLO architecture, achieving real-time traffic monitoring and classification for enhanced traffic management.
+                        </p>
+                        <div class="project-highlights">
+                            <div class="highlight-item">
+                                <i class="fas fa-car"></i>
+                                <span>Real-time Detection</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-traffic-light"></i>
+                                <span>Traffic Management</span>
+                            </div>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag ai">YOLO</span>
+                            <span class="tech-tag python">Python</span>
+                            <span class="tech-tag cv">OpenCV</span>
+                            <span class="tech-tag ml">Computer Vision</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COVID-19 Vaccine Analysis -->
+                <div class="project-card" data-category="research">
+                    <div class="project-image">
+                        <img src="assets/images/projects/covid.png" alt="COVID Analysis" class="project-img">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>COVID-19 Vaccine Analysis</h3>
+                            <div class="project-period">2023</div>
+                        </div>
+                        <p class="project-description">
+                            In-depth data analysis of vaccination trends using Python, providing actionable insights through effective data visualization and interactive dashboards.
+                        </p>
+                        <div class="project-highlights">
+                            <div class="highlight-item">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>Data Visualization</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-virus"></i>
+                                <span>Healthcare Analytics</span>
+                            </div>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag python">Python</span>
+                            <span class="tech-tag data">Pandas</span>
+                            <span class="tech-tag viz">Matplotlib</span>
+                            <span class="tech-tag">Plotly</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gesture-Controlled Scrolling System -->
+                <div class="project-card animate-on-scroll scale-in-on-scroll hover-lift" data-category="ai-ml">
+                    <div class="project-image">
+                        <img src="assets/images/projects/gesture-control.jpg" alt="Gesture Control" class="project-img">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>Gesture-Controlled Scrolling System</h3>
+                            <div class="project-period">2024</div>
+                        </div>
+                        <p class="project-description">
+                            AI-driven gesture-control system using OpenCV and MediaPipe for seamless scrolling, achieving hands-free navigation through intuitive hand-tracking.
+                        </p>
+                        <div class="project-highlights">
+                            <div class="highlight-item">
+                                <i class="fas fa-hand-paper"></i>
+                                <span>Hand Tracking</span>
+                            </div>
+                            <div class="highlight-item">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span>Seemless User Experience</span>
+                            </div>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag cv">OpenCV</span>
+                            <span class="tech-tag ai">MediaPipe</span>
+                            <span class="tech-tag python">Python</span>
+                            <span class="tech-tag">Computer Vision</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Statistics -->
+            <!-- <div class="project-stats">
+                <div class="stat-item">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Total Projects</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">AI/ML Projects</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">91%+</div>
+                    <div class="stat-label">Best Accuracy</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Research Papers</div>
+                </div>
+            </div> -->
+        </div>
+
+        <!-- Background Elements -->
+        <div class="projects-background">
+            <div class="bg-grid"></div>
+            <div class="bg-dots"></div>
+        </div>
+    </div>
+</section>
+
+
+
+        <!-- Skills Section -->
+        <section id="skills" class="section-container skills-content">
+            <div class="skills-container">
+                <div class="section-header">
+                    <h2 class="section-title">Skills & Technologies</h2>
+                    <p class="section-subtitle">
+                        Comprehensive technical stack spanning AI/ML, Backend Development, and Cloud Technologies
+                    </p>
+                </div>
+
+                <!-- Skills Overview Stats -->
+                <div class="skills-overview">
+                    <div class="overview-stats">
+                        <div class="overview-stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h4>Programming Languages</h4>
+                                <p>2 Core Languages</p>
+                            </div>
+                        </div>
+                        <div class="overview-stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h4>AI/ML Frameworks</h4>
+                                <p>5 Advanced Tools</p>
+                            </div>
+                        </div>
+                        <div class="overview-stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h4>Dev & Deployment</h4>
+                                <p>8 Technologies</p>
+                            </div>
+                        </div>
+                        <div class="overview-stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h4>Core Competencies</h4>
+                                <p>4 Domains</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills Main Grid -->
+                <div class="skills-main">
+                    <!-- Programming Languages -->
+                    <div class="skills-category">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div>
+                                <h3>Programming Languages</h3>
+                                <p>Core programming expertise</p>
+                            </div>
+                        </div>
+                        <div class="skills-grid">
+                            <div class="skill-item advanced" data-width="95">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fab fa-python"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>Python</h4>
+                                        <p>Advanced proficiency in data science, ML, web development</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="95"></div>
+                                        </div>
+                                        <span class="skill-experience">3+ years</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item intermediate" data-width="80">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fab fa-java"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>Java</h4>
+                                        <p>Spring Boot, REST APIs, enterprise applications</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="80"></div>
+                                        </div>
+                                        <span class="skill-experience">2+ years</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ML & AI Frameworks -->
+                    <div class="skills-category">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <h3>ML & AI Frameworks</h3>
+                                <p>Machine Learning and AI expertise</p>
+                            </div>
+                        </div>
+                        <div class="skills-grid multi-column">
+                            <div class="skill-item advanced" data-width="90">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-brain"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>TensorFlow</h4>
+                                        <p>Deep learning models</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="90"></div>
+                                        </div>
+                                        <span class="skill-experience">Advanced</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item advanced" data-width="88">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-network-wired"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>Keras</h4>
+                                        <p>Neural networks</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="88"></div>
+                                        </div>
+                                        <span class="skill-experience">Advanced</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item advanced" data-width="85">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>Scikit-learn</h4>
+                                        <p>ML algorithms</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="85"></div>
+                                        </div>
+                                        <span class="skill-experience">Advanced</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item intermediate" data-width="75">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-rocket"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>Unsloth</h4>
+                                        <p>LLM optimization</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="75"></div>
+                                        </div>
+                                        <span class="skill-experience">Intermediate</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item advanced" data-width="82">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-language"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>NLP Tools</h4>
+                                        <p>Text processing</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="82"></div>
+                                        </div>
+                                        <span class="skill-experience">Advanced</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Development & Deployment -->
+                    <div class="skills-category">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div>
+                                <h3>Development & Deployment</h3>
+                                <p>Full-stack development and DevOps tools</p>
+                            </div>
+                        </div>
+                        <div class="skills-grid multi-column">
+                            <div class="skill-item advanced" data-width="92">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-table"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>Pandas</h4>
+                                        <p>Data manipulation</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="92"></div>
+                                        </div>
+                                        <span class="skill-experience">Advanced</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item advanced" data-width="90">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-calculator"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>NumPy</h4>
+                                        <p>Numerical computing</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="90"></div>
+                                        </div>
+                                        <span class="skill-experience">Advanced</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item advanced" data-width="85">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fab fa-python"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>Django</h4>
+                                        <p>Web framework</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="85"></div>
+                                        </div>
+                                        <span class="skill-experience">Advanced</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item intermediate" data-width="78">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-leaf"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>Spring Boot</h4>
+                                        <p>Java framework</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="78"></div>
+                                        </div>
+                                        <span class="skill-experience">Intermediate</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item intermediate" data-width="75">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-exchange-alt"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>REST API</h4>
+                                        <p>API development</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="75"></div>
+                                        </div>
+                                        <span class="skill-experience">Intermediate</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item advanced" data-width="88">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fab fa-git-alt"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>Git</h4>
+                                        <p>Version control</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="88"></div>
+                                        </div>
+                                        <span class="skill-experience">Advanced</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item intermediate" data-width="72">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fab fa-docker"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>Docker</h4>
+                                        <p>Containerization</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="72"></div>
+                                        </div>
+                                        <span class="skill-experience">Intermediate</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item intermediate" data-width="70">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-database"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>MySQL</h4>
+                                        <p>Database management</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="70"></div>
+                                        </div>
+                                        <span class="skill-experience">Intermediate</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item intermediate" data-width="68">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-chart-bar"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>Zoho Analytics</h4>
+                                        <p>Business intelligence</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="68"></div>
+                                        </div>
+                                        <span class="skill-experience">Intermediate</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item advanced" data-width="80">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-smile"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>Hugging Face</h4>
+                                        <p>NLP models</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="80"></div>
+                                        </div>
+                                        <span class="skill-experience">Advanced</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item intermediate" data-width="65">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-server"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>Ollama</h4>
+                                        <p>Local AI models</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="65"></div>
+                                        </div>
+                                        <span class="skill-experience">Intermediate</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Core Competencies -->
+                    <div class="skills-category">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <h3>Core Competencies</h3>
+                                <p>Fundamental computer science knowledge</p>
+                            </div>
+                        </div>
+                        <div class="skills-grid multi-column">
+                            <div class="skill-item advanced" data-width="88">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-project-diagram"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>Data Structures & Algorithms</h4>
+                                        <p>Problem-solving foundation</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="88"></div>
+                                        </div>
+                                        <span class="skill-experience">Advanced</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item intermediate" data-width="75">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-desktop"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>Operating Systems</h4>
+                                        <p>System administration</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="75"></div>
+                                        </div>
+                                        <span class="skill-experience">Intermediate</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item intermediate" data-width="72">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-network-wired"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>Computer Networks</h4>
+                                        <p>Network protocols</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="72"></div>
+                                        </div>
+                                        <span class="skill-experience">Intermediate</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item intermediate" data-width="78">
+                                <div class="skill-content">
+                                    <div class="skill-icon">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div class="skill-info">
+                                        <h4>Cyber Security</h4>
+                                        <p>Security principles</p>
+                                        <div class="skill-progress">
+                                            <div class="progress-bar" data-width="78"></div>
+                                        </div>
+                                        <span class="skill-experience">Intermediate</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Contact Section -->
+       <section id="contact" class="section-container">
+    <div class="contact-content">
+        <div class="contact-container">
+            <!-- Section Header -->
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-envelope"></i>
+                    <span>Let's connect</span>
+                </div>
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="section-line"></div>
+                <p class="section-subtitle">
+                    Ready to discuss opportunities, collaborations, or just say hello? Let's connect!
+                </p>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="contact-main">
+                <!-- Contact Form -->
+                <div class="contact-form-section">
+                    <div class="form-header">
+                        <h3>Send me a message</h3>
+                        <p>I'll get back to you within 24 hours</p>
+                    </div>
+                    <!-- FIXED FORMSPREE FORM -->
+                    <form 
+                        class="contact-form" 
+                        id="contact-form"
+                        action="https://formspree.io/f/mpwydnrd"
+                        method="POST"
+                        accept-charset="UTF-8"
+                    >
+                        <!-- Hidden Formspree Fields -->
+                        <input type="hidden" name="_subject" value="New Portfolio Contact Form Submission">
+                        <input type="hidden" name="_next" value="#contact">
+                        <input type="hidden" name="_captcha" value="false">
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input 
+                                    type="text" 
+                                    id="name" 
+                                    name="name" 
+                                    required
+                                    autocomplete="name"
+                                    placeholder="Enter your full name"
+                                >
+                                <div class="input-line"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    name="email" 
+                                    required
+                                    autocomplete="email"
+                                    placeholder="Enter your email address"
+                                >
+                                <div class="input-line"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="message">Message *</label>
+                            <textarea 
+                                id="message" 
+                                name="message" 
+                                rows="6" 
+                                required 
+                                placeholder="Tell me about your project, opportunity, or just say hello..."
+                                maxlength="1000"
+                            ></textarea>
+                            <div class="input-line"></div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary submit-btn">
+                            <span class="btn-text">Send Message</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Information -->
+                <div class="contact-info-section">
+                    <div class="info-header">
+                        <h3>Contact Information</h3>
+                        <p>Reach out through any of these channels</p>
+                    </div>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="method-details">
+                                <h4>Email</h4>
+                                <p>harishkmlengineer@gmail.com</p>
+                                <a href="mailto:harishkmlengineer@gmail.com" class="method-link">Send Email</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="method-details">
+                                <h4>Phone</h4>
+                                <p>+91 7558152169</p>
+                                <a href="tel:+917558152169" class="method-link">Call Now</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                            <div class="method-details">
+                                <h4>LinkedIn</h4>
+                                <p>Professional Network</p>
+                                <a href="https://linkedin.com/in/harish-kumar-kingston-pydev" target="_blank" class="method-link">Connect</a>
+                            </div>
+                        </div>
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                            <div class="method-details">
+                                <h4>Instagram</h4>
+                                <p>@harish_kumar_mc_</p>
+                                <a href="https://www.instagram.com/harish_kumar_mc_" target="_blank" class="method-link">Visit Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+                <!-- Footer Section -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-container">
+                    <!-- Footer Main -->
+                    <div class="footer-main">
+                        <!-- Footer Brand -->
+                        <div class="footer-brand">
+                            <div class="footer-logo">
+                                <h3>Harish K</h3>
+                                <p class="footer-tagline">AI/ML Engineer & Full-Stack Developer</p>
+                            </div>
+                            <p class="footer-description">
+                                Passionate about creating intelligent solutions through AI, Machine Learning, and modern web technologies. 
+                                Let's build something amazing together.
+                            </p>
+                            <div class="footer-social">
+                                <a href="https://linkedin.com/in/harish-kumar-kingston-pydev" target="_blank" class="social-link linkedin" title="LinkedIn">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="https://github.com/yourgithub" target="_blank" class="social-link github" title="GitHub">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="mailto:harishkmlengineer@gmail.com" class="social-link email" title="Email">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                                <a href="tel:+917558152169" class="social-link phone" title="Phone">
+                                    <i class="fas fa-phone"></i>
+                                </a>
+                                <a href="https://www.instagram.com/harish_kumar_mc_" class="social-link instagram" title="Instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Footer Links -->
+                        <div class="footer-links">
+                            <div class="footer-column">
+                                <h4>Quick Links</h4>
+                                <ul>
+                                    <li><a href="#home">Home</a></li>
+                                    <li><a href="#about">About</a></li>
+                                    <li><a href="#projects">Projects</a></li>
+                                    <li><a href="#skills">Skills</a></li>
+                                    <li><a href="#contact">Contact</a></li>
+                                </ul>
+                            </div>
+                            
+                            <div class="footer-column">
+                                <h4>Services</h4>
+                                <ul>
+                                    <li><a href="#contact">AI/ML Development</a></li>
+                                    <li><a href="#contact">Web Development</a></li>
+                                    <li><a href="#contact">Data Analysis</a></li>
+                                    <li><a href="#contact">Consulting</a></li>
+                                    <li><a href="#contact">Collaboration</a></li>
+                                </ul>
+                            </div>
+                            
+                            <div class="footer-column">
+                                <h4>Contact Info</h4>
+                                <ul>
+                                    <li>
+                                        <i class="fas fa-envelope"></i>
+                                        <span>harishkmlengineer@gmail.com</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-phone"></i>
+                                        <span>+91 7558152169</span>
+                                    </li>
+                                    <li>
+                                        <i class="fab fa-instagram"></i>
+                                        <span>@harish_kumar_mc_</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Tamil Nadu, India</span>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-clock"></i>
+                                        <span>Available 9 AM - 6 PM IST</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Footer Bottom -->
+                    <div class="footer-bottom">
+                        <div class="footer-bottom-content">
+                            <div class="footer-copyright">
+                                <p>&copy; 2025 Harish K. All rights reserved.</p>
+                                <p class="footer-built">Built with ❤️ using modern web technologies</p>
+                            </div>
+                            <div class="footer-bottom-links">
+                                <a href="#contact">Contact</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Back to Top Button -->
+                        <button class="back-to-top" id="backToTop" title="Back to Top">
+                            <i class="fas fa-arrow-up"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Add this anywhere in your HTML (hidden by default) -->
+<!-- Add this anywhere in your HTML (hidden by default) -->
+<div id="admin-analytics-panel" style="display: none;">
+    <div class="admin-dashboard-content">
+        <h2>📊 Portfolio Analytics Dashboard</h2>
+        
+        <div class="admin-analytics-stats">
+            <div class="analytics-card">
+                <h3>Total Visitors</h3>
+                <div id="admin-total-count">0</div>
+            </div>
+            <div class="analytics-card">
+                <h3>Unique Visitors</h3>
+                <div id="admin-unique-count">0</div>
+            </div>
+            <div class="analytics-card">
+                <h3>Today's Visits</h3>
+                <div id="admin-today-count">0</div>
+            </div>
+            <div class="analytics-card">
+                <h3>Return Rate</h3>
+                <div id="admin-return-rate">0%</div>
+            </div>
+        </div>
+        
+        <div class="admin-charts-section">
+            <div class="chart-container">
+                <h4>🖥️ Device Types</h4>
+                <div id="device-chart"></div>
+            </div>
+            <div class="chart-container">
+                <h4>🌐 Referrer Sources</h4>
+                <div id="referrer-chart"></div>
+            </div>
+            <div class="chart-container">
+                <h4>🚀 Browser Types</h4>
+                <div id="browser-chart"></div>
+            </div>
+            <div class="chart-container">
+                <h4>📡 Connection Types</h4>
+                <div id="connection-chart"></div>
+            </div>
+
+        </div>
+        
+        <div class="admin-control-buttons">
+            <button onclick="refreshAdminData()">🔄 Refresh Data</button>
+            <button onclick="exportAnalytics()">📁 Export Analytics</button>
+            <button onclick="resetCounter()">🗑️ Reset Counter</button>
+            <button onclick="closeAdminPanel()">✖️ Close</button>
+        </div>
+        
+        <div class="recent-visitors-section">
+            <h4>📋 Recent Visitors</h4>
+            <div id="visitor-details"></div>
+        </div>
+    </div>
+</div>
+<style>
+/* ADMIN PANEL STYLES - UNIQUE CLASSES TO AVOID CONFLICTS */
+#admin-analytics-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(15px);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.admin-dashboard-content {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2.5rem;
+    border-radius: 20px;
+    max-width: 95vw;
+    max-height: 95vh;
+    overflow-y: auto;
+    color: white;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-dashboard-content h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.admin-analytics-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+/* UNIQUE CLASS - WON'T CONFLICT WITH YOUR EXISTING .stat-card */
+.analytics-card {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 1.8rem;
+    border-radius: 15px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.analytics-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #FFD700, transparent);
+    transition: left 0.5s ease;
+}
+
+.analytics-card:hover::before {
+    left: 100%;
+}
+
+.analytics-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.analytics-card h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.analytics-card div {
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: #FFD700;
+    text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.admin-charts-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.chart-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chart-container h4 {
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    color: #FFD700;
+    text-align: center;
+}
+
+.admin-control-buttons {
+    display: flex;
+    gap: 1rem;
+    margin: 2.5rem 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.admin-control-buttons button {
+    padding: 0.8rem 1.8rem;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-width: 140px;
+}
+
+.admin-control-buttons button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.admin-control-buttons button:active {
+    transform: translateY(-1px);
+}
+
+.recent-visitors-section {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-top: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.recent-visitors-section h4 {
+    margin: 0 0 1rem 0;
+    color: #FFD700;
+    font-size: 1.1rem;
+}
+
+#visitor-details {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+#visitor-details::-webkit-scrollbar {
+    width: 6px;
+}
+
+#visitor-details::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+#visitor-details::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.visitor-log-item {
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    border-left: 3px solid #FFD700;
+    transition: all 0.3s ease;
+}
+
+.visitor-log-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(5px);
+}
+
+.chart-bar {
+    background: rgba(255, 255, 255, 0.2);
+    height: 12px;
+    border-radius: 6px;
+    margin: 8px 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.chart-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.chart-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admin-dashboard-content {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .admin-analytics-stats {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+    
+    .analytics-card {
+        padding: 1.2rem;
+    }
+    
+    .analytics-card div {
+        font-size: 2.2rem;
+    }
+    
+    .admin-charts-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .admin-control-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .admin-control-buttons button {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+</style>
+
+    </main>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript Modules -->
+    <script src="assets/js/navigations.js"></script>
+    <script src="assets/js/hero.js"></script>
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/about.js"></script>
+    <script src="assets/js/leetcode-api.js"></script>
+    <script src="assets/js/skills.js"></script>
+    <script src="assets/js/projects.js"></script>
+    <script src="assets/js/contact.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,868 @@
+/**
+ * ================================================================
+ * HERO SECTION STYLES
+ * Fixed Mobile Layout with Proper Element Positioning
+ * ================================================================ */
+
+/* ================================================================
+   HERO MAIN LAYOUT - MOBILE OPTIMIZED
+   ================================================================ */
+
+.hero-content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: clamp(80px, 12vh, 120px) 0 clamp(60px, 8vh, 80px);
+    background: var(--background-dark);
+}
+
+.hero-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(ellipse at top left, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom right, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at center, rgba(240, 147, 251, 0.05) 0%, transparent 70%);
+    z-index: -1;
+}
+
+.hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 5vw, 3rem);
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 8vw, 4rem);
+    align-items: center;
+    margin-bottom: clamp(2rem, 5vh, 3rem);
+}
+
+/* ================================================================
+   HERO TEXT CONTENT - RESPONSIVE
+   ================================================================ */
+
+.hero-text {
+    padding: clamp(1rem, 4vw, 2rem) 0;
+    z-index: 2;
+    position: relative;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: clamp(0.5rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
+    background: rgba(102, 126, 234, 0.1);
+    color: var(--primary-color);
+    border: 1px solid rgba(102, 126, 234, 0.3);
+    border-radius: var(--radius-full);
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    font-weight: 500;
+    margin-bottom: clamp(1rem, 4vw, 2rem);
+    backdrop-filter: blur(10px);
+    animation: fadeInUp 0.8s ease forwards;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.2), transparent);
+    animation: badgeShine 3s ease-in-out infinite;
+}
+
+@keyframes badgeShine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.hero-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    border-color: var(--primary-color);
+}
+
+.hero-title {
+    font-size: clamp(2rem, 8vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: clamp(1rem, 3vw, 1.5rem);
+}
+
+.greeting {
+    display: block;
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: clamp(0.5rem, 2vw, 0.75rem);
+    animation: fadeInUp 0.8s ease 0.2s forwards;
+    opacity: 0;
+}
+
+/* ================================================================
+   FIXED NAME AND TYPING ANIMATION - RESPONSIVE
+   ================================================================ */
+
+.name {
+    display: block;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeInUp 0.8s ease 0.4s forwards;
+    opacity: 0;
+    position: relative;
+    font-size: clamp(2rem, 8vw, 3.5rem);
+}
+
+/* Remove any pseudo-element content that might cause duplication */
+.name::before {
+    display: none !important;
+}
+
+.name::after {
+    display: none !important;
+}
+
+/* Typing animation container - Fixed to prevent duplication */
+.typing-animation {
+    position: relative;
+    display: inline-block;
+}
+
+/* Typing cursor - Only show when JS activates typing */
+.typing-animation.typing-active::after {
+    content: '|';
+    position: absolute;
+    right: -5px;
+    top: 0;
+    color: var(--primary-color);
+    font-weight: 400;
+    animation: blink-caret 1s step-end infinite;
+}
+
+/* Blinking cursor animation */
+@keyframes blink-caret {
+    from, to { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Temporary fix - Show name properly until JS loads */
+.typing-animation {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    margin-bottom: clamp(1rem, 3vw, 1.5rem);
+    animation: fadeInUp 0.8s ease 0.6s forwards;
+    opacity: 0;
+    position: relative;
+    color: var(--text-secondary);
+}
+
+.hero-subtitle::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    animation: underlineExpand 1s ease 1.4s forwards;
+}
+
+@keyframes underlineExpand {
+    to { width: 100%; }
+}
+
+.hero-description {
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: clamp(1.5rem, 4vw, 2rem);
+    max-width: clamp(300px, 80vw, 600px);
+    animation: fadeInUp 0.8s ease 0.8s forwards;
+    opacity: 0;
+}
+
+.hero-description strong {
+    color: var(--primary-color);
+    font-weight: 600;
+    position: relative;
+}
+
+.hero-description strong::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--primary-color);
+    opacity: 0.5;
+    animation: highlightPulse 2s ease-in-out infinite;
+}
+
+@keyframes highlightPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* ================================================================
+   HERO BUTTONS - RESPONSIVE
+   ================================================================ */
+
+.hero-buttons {
+    display: flex;
+    gap: clamp(0.75rem, 3vw, 1.5rem);
+    flex-wrap: wrap;
+    margin-bottom: clamp(1.5rem, 4vw, 2rem);
+    animation: fadeInUp 0.8s ease 1.2s forwards;
+    opacity: 0;
+}
+
+.hero-buttons .btn {
+    padding: clamp(0.7rem, 3vw, 1rem) clamp(1.5rem, 4vw, 2rem);
+    font-size: clamp(0.85rem, 2.5vw, 1rem);
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    min-width: fit-content;
+}
+
+.hero-buttons .btn:hover {
+    transform: translateY(-3px);
+}
+
+.hero-buttons .btn i {
+    transition: transform var(--duration-normal) ease;
+}
+
+.hero-buttons .btn:hover i {
+    transform: translateX(3px);
+}
+
+/* Download CV button special effect */
+.btn-secondary:hover {
+    background: rgba(102, 126, 234, 0.3);
+    border-color: var(--primary-color);
+}
+
+.btn-secondary i {
+    animation: downloadBounce 2s ease-in-out infinite;
+}
+
+@keyframes downloadBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+/* ================================================================
+   HERO SOCIAL LINKS - RESPONSIVE
+   ================================================================ */
+
+.hero-social {
+    display: flex;
+    gap: clamp(0.75rem, 3vw, 1.5rem);
+    animation: fadeInUp 0.8s ease 1.4s forwards;
+    opacity: 0;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    width: clamp(40px, 8vw, 50px);
+    height: clamp(40px, 8vw, 50px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(102, 126, 234, 0.1);
+    color: var(--primary-color);
+    border: 1px solid rgba(102, 126, 234, 0.3);
+    border-radius: 50%;
+    font-size: clamp(0.9rem, 3vw, 1.25rem);
+    transition: all var(--duration-normal) ease;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    transform: scale(0);
+    border-radius: 50%;
+    transition: transform var(--duration-normal) ease;
+    z-index: -1;
+}
+
+.social-link:hover::before {
+    transform: scale(1);
+}
+
+.social-link:hover {
+    color: var(--text-primary);
+    transform: translateY(-5px) rotate(5deg);
+    box-shadow: var(--shadow-glow);
+    border-color: transparent;
+}
+
+/* ================================================================
+   HERO IMAGE SECTION - RESPONSIVE
+   ================================================================ */
+
+.hero-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    animation: fadeInUp 0.8s ease 1.6s forwards;
+    opacity: 0;
+}
+
+.profile-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-wrapper {
+    position: relative;
+    width: clamp(200px, 40vw, 400px);
+    height: clamp(200px, 40vw, 400px);
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid transparent;
+    background: var(--gradient-primary);
+    padding: 5px;
+    animation: profileFloat 6s ease-in-out infinite;
+    filter: drop-shadow(0 10px 30px rgba(102, 126, 234, 0.3));
+    transition: all var(--duration-normal) ease;
+    cursor: pointer;
+}
+
+.profile-image:hover {
+    transform: scale(1.05) rotate(2deg);
+    filter: drop-shadow(0 15px 40px rgba(102, 126, 234, 0.5));
+}
+
+@keyframes profileFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.profile-border {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    opacity: 0.3;
+    animation: borderRotate 10s linear infinite;
+}
+
+@keyframes borderRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ================================================================
+   ENHANCED HERO STATS - IN FLOW LAYOUT
+   ================================================================ */
+
+.hero-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: clamp(0.75rem, 3vw, 1.5rem);
+    padding: clamp(1rem, 4vw, 2rem);
+    background: rgba(15, 15, 35, 0.5);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    border-radius: var(--radius-large);
+    backdrop-filter: blur(10px);
+    animation: fadeInUp 0.8s ease 1s forwards;
+    opacity: 0;
+    position: relative;
+    overflow: hidden;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-stats::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+    animation: statsShine 4s ease-in-out infinite;
+}
+
+@keyframes statsShine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.stat-item {
+    text-align: center;
+    padding: clamp(0.5rem, 2vw, 1rem);
+    border-radius: var(--radius-medium);
+    transition: all var(--duration-normal) ease;
+    position: relative;
+    cursor: pointer;
+}
+
+.stat-item:hover {
+    background: rgba(102, 126, 234, 0.1);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+}
+
+.stat-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-primary);
+    opacity: 0;
+    border-radius: var(--radius-medium);
+    transition: opacity var(--duration-normal) ease;
+    z-index: -1;
+}
+
+.stat-item:hover::before {
+    opacity: 0.1;
+}
+
+.stat-number {
+    display: block;
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: clamp(0.25rem, 1vw, 0.5rem);
+    position: relative;
+}
+
+.stat-label {
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
+    color: var(--text-secondary);
+    font-weight: 500;
+    position: relative;
+}
+
+.stat-item:hover .stat-label {
+    color: var(--text-primary);
+}
+
+/* ================================================================
+   HERO BOTTOM SECTION - MOBILE FRIENDLY
+   ================================================================ */
+
+.hero-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1rem, 3vw, 2rem);
+    align-items: center;
+    margin-top: clamp(2rem, 5vh, 3rem);
+    animation: fadeInUp 0.8s ease 2s forwards;
+    opacity: 0;
+}
+
+/* ================================================================
+   VISITOR COUNTER - IN FLOW LAYOUT
+   ================================================================ */
+
+.visitor-counter {
+    background: rgba(15, 15, 35, 0.9);
+    padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 3vw, 1.25rem);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    backdrop-filter: blur(10px);
+    animation: counterGlow 2s ease-in-out infinite alternate;
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
+    color: var(--text-secondary);
+    transition: all var(--duration-normal) ease;
+    cursor: pointer;
+    max-width: 200px;
+    justify-content: center;
+}
+
+.visitor-counter:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    background: rgba(15, 15, 35, 0.95);
+}
+
+@keyframes counterGlow {
+    from { box-shadow: 0 0 10px rgba(102, 126, 234, 0.3); }
+    to { box-shadow: 0 0 20px rgba(102, 126, 234, 0.6); }
+}
+
+#visitor-count {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: clamp(0.8rem, 2.5vw, 1rem);
+}
+
+/* ================================================================
+   FLOATING TECH ICONS - RESPONSIVE
+   ================================================================ */
+
+.floating-icons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.tech-icon {
+    position: absolute;
+    width: clamp(40px, 8vw, 60px);
+    height: clamp(40px, 8vw, 60px);
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: clamp(0.8rem, 3vw, 1.25rem);
+    animation: floatTech 4s ease-in-out infinite;
+    animation-delay: var(--delay);
+    box-shadow: var(--shadow-medium);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: all var(--duration-normal) ease;
+    pointer-events: auto;
+}
+
+.tech-icon:hover {
+    transform: scale(1.2) rotate(360deg) !important;
+    background: var(--gradient-accent);
+    box-shadow: var(--shadow-glow-accent);
+}
+
+.tech-icon[style*="--position: 1"] { 
+    top: 10%; 
+    right: 20%; 
+    animation-delay: 0s;
+}
+.tech-icon[style*="--position: 2"] { 
+    top: 20%; 
+    left: 10%; 
+    animation-delay: 1s;
+}
+.tech-icon[style*="--position: 3"] { 
+    bottom: 30%; 
+    right: 30%; 
+    animation-delay: 2s;
+}
+.tech-icon[style*="--position: 4"] { 
+    bottom: 20%; 
+    left: 20%; 
+    animation-delay: 3s;
+}
+.tech-icon[style*="--position: 5"] { 
+    top: 60%; 
+    right: 5%; 
+    animation-delay: 4s;
+}
+.tech-icon[style*="--position: 6"] { 
+    top: 70%; 
+    left: 5%; 
+    animation-delay: 5s;
+}
+
+@keyframes floatTech {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(180deg); }
+}
+
+/* Specific icon colors */
+.tech-icon:nth-child(1) { background: linear-gradient(135deg, #3776ab 0%, #ffd43b 100%); } /* Python */
+.tech-icon:nth-child(2) { background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%); } /* AI */
+.tech-icon:nth-child(3) { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); } /* ML */
+.tech-icon:nth-child(4) { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); } /* Charts */
+.tech-icon:nth-child(5) { background: linear-gradient(135deg, #ed7014 0%, #5382a1 100%); } /* Java */
+.tech-icon:nth-child(6) { background: linear-gradient(135deg, #336791 0%, #f29111 100%); } /* Database */
+
+/* ================================================================
+   BACKGROUND ELEMENTS - RESPONSIVE
+   ================================================================ */
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.bg-element {
+    position: absolute;
+    background: var(--gradient-primary);
+    opacity: 0.03;
+    border-radius: 50%;
+    animation: bgFloat 20s ease-in-out infinite;
+}
+
+.bg-element-1 {
+    width: clamp(200px, 30vw, 300px);
+    height: clamp(200px, 30vw, 300px);
+    top: 10%;
+    left: -5%;
+    animation-delay: 0s;
+}
+
+.bg-element-2 {
+    width: clamp(150px, 25vw, 200px);
+    height: clamp(150px, 25vw, 200px);
+    bottom: 20%;
+    right: -3%;
+    animation-delay: 5s;
+}
+
+.bg-element-3 {
+    width: clamp(100px, 20vw, 150px);
+    height: clamp(100px, 20vw, 150px);
+    top: 60%;
+    left: 70%;
+    animation-delay: 10s;
+}
+
+@keyframes bgFloat {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(30px, -30px) rotate(120deg); }
+    66% { transform: translate(-20px, 20px) rotate(240deg); }
+}
+
+/* ================================================================
+   FADE IN ANIMATIONS
+   ================================================================ */
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Initial state for animated elements */
+.hero-badge,
+.greeting,
+.hero-subtitle,
+.hero-description,
+.hero-stats,
+.hero-buttons,
+.hero-social,
+.hero-image,
+.hero-bottom {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* ================================================================
+   RESPONSIVE BREAKPOINTS
+   ================================================================ */
+
+@media (max-width: 1024px) {
+    .hero-layout {
+        gap: clamp(1.5rem, 6vw, 3rem);
+    }
+    
+    .profile-wrapper {
+        width: clamp(250px, 35vw, 350px);
+        height: clamp(250px, 35vw, 350px);
+    }
+    
+    .tech-icon {
+        width: clamp(35px, 6vw, 50px);
+        height: clamp(35px, 6vw, 50px);
+        font-size: clamp(0.7rem, 2.5vw, 1rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-content {
+        min-height: auto;
+        padding: clamp(80px, 10vh, 100px) 0 clamp(40px, 6vh, 60px);
+    }
+
+    .hero-layout {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: clamp(1.5rem, 5vw, 2.5rem);
+    }
+    
+    .hero-text {
+        order: 2;
+    }
+    
+    .hero-image {
+        order: 1;
+    }
+    
+    .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(0.5rem, 2vw, 1rem);
+        padding: clamp(0.75rem, 3vw, 1.5rem);
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+    
+    .hero-social {
+        justify-content: center;
+    }
+
+    .hero-description {
+        max-width: 100%;
+        text-align: left;
+    }
+
+    .hero-bottom {
+        gap: clamp(0.75rem, 2vw, 1.5rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content {
+        padding: clamp(60px, 8vh, 80px) 0 clamp(30px, 4vh, 40px);
+    }
+    
+    .hero-container {
+        padding: 0 clamp(0.75rem, 4vw, 1rem);
+    }
+    
+    .hero-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(0.25rem, 1vw, 0.5rem);
+        padding: clamp(0.5rem, 2vw, 1rem);
+        max-width: 300px;
+    }
+    
+    .hero-buttons .btn {
+        padding: clamp(0.6rem, 3vw, 0.8rem) clamp(1.2rem, 4vw, 1.5rem);
+        font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+    }
+    
+    .social-link {
+        width: clamp(35px, 7vw, 45px);
+        height: clamp(35px, 7vw, 45px);
+        font-size: clamp(0.8rem, 2.5vw, 1rem);
+    }
+
+    /* Hide tech icons on mobile for better performance */
+    .floating-icons {
+        display: none;
+    }
+
+    /* Simplify animations on mobile */
+    .profile-image {
+        animation: none;
+    }
+
+    .profile-border {
+        display: none;
+    }
+}
+
+@media (max-width: 320px) {
+    .hero-stats {
+        grid-template-columns: 1fr;
+        max-width: 200px;
+    }
+
+    .hero-buttons {
+        gap: clamp(0.5rem, 2vw, 0.75rem);
+    }
+
+    .hero-social {
+        gap: clamp(0.5rem, 2vw, 0.75rem);
+    }
+}
+
+/* ================================================================
+   SPECIAL EFFECTS - CONDITIONAL
+   ================================================================ */
+
+/* Particle effect on hero load - Only on larger screens */
+@media (min-width: 769px) {
+    .hero-content::after {
+        content: '✨';
+        position: absolute;
+        font-size: var(--font-size-lg);
+        animation: particleFloat 4s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 1;
+        animation-delay: 3s;
+        top: 20%;
+        left: 15%;
+    }
+}
+
+@keyframes particleFloat {
+    0% { opacity: 0; transform: translateY(50px) scale(0); }
+    50% { opacity: 1; transform: translateY(-50px) scale(1); }
+    100% { opacity: 0; transform: translateY(-150px) scale(0); }
+}
