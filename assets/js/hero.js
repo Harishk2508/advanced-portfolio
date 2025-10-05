@@ -221,51 +221,56 @@ checkReturningVisitor(sessionId) {
 
 async getRealVisitorCount() {
     try {
-        // FIXED: Get synchronized count from CountAPI server
-        const response = await fetch('https://api.countapi.xyz/get/harishk-portfolio-sync/visitors');
+        const response = await fetch('/.netlify/functions/visitor-counter', {
+            method: 'GET'
+        });
         const data = await response.json();
         
         if (data && data.value !== undefined) {
-            console.log(`📊 Synchronized count from server: ${data.value}`);
+            console.log(`📊 Count from Netlify: ${data.value}`);
+            localStorage.setItem('portfolio-real-visitors', data.value.toString());
             return data.value;
         }
         
-        console.warn('CountAPI returned invalid data');
-        return 0;
+        throw new Error('Invalid response');
         
     } catch (error) {
-        console.error('❌ Failed to fetch synchronized count:', error);
-        return 0;
+        console.warn('⚠️ Using localStorage fallback');
+        const count = parseInt(localStorage.getItem('portfolio-real-visitors')) || 0;
+        return count;
     }
 }
 
-
 async incrementVisitorCount(currentCount, sessionId) {
     try {
-        // FIXED: Increment on CountAPI server (syncs across all devices)
-        const response = await fetch('https://api.countapi.xyz/hit/harishk-portfolio-sync/visitors');
+        const response = await fetch('/.netlify/functions/visitor-counter', {
+            method: 'POST'
+        });
         const data = await response.json();
         
         if (data && data.value !== undefined) {
             const newCount = data.value;
-            console.log(`📈 Count incremented on server: ${newCount}`);
+            console.log(`📈 Count incremented on Netlify: ${newCount}`);
             
-            // Store session info locally (not the count)
+            localStorage.setItem('portfolio-real-visitors', newCount.toString());
             localStorage.setItem('portfolio-last-visitor', sessionId);
             localStorage.setItem('portfolio-last-visit-time', Date.now().toString());
             
-            // Broadcast to other tabs
             this.broadcastVisitorCount(newCount);
-            
             return newCount;
         }
         
-        console.warn('Failed to increment on server');
-        return currentCount;
+        throw new Error('Invalid response');
         
     } catch (error) {
-        console.error('❌ Failed to increment count:', error);
-        return currentCount;
+        console.warn('⚠️ Using local increment');
+        const newCount = currentCount + 1;
+        localStorage.setItem('portfolio-real-visitors', newCount.toString());
+        localStorage.setItem('portfolio-last-visitor', sessionId);
+        localStorage.setItem('portfolio-last-visit-time', Date.now().toString());
+        this.broadcastVisitorCount(newCount);
+        
+        return newCount;
     }
 }
 
