@@ -597,51 +597,68 @@ getCurrentVisitorCount() {
 }
 
 // ENHANCED: Professional reset with confirmation
-resetVisitorCount(newCount = 0, confirm = true) {
-    if (confirm && !window.confirm(`🔄 Reset visitor counter to ${newCount}? This will clear all visitor data.`)) {
+// FIXED: Reset visitor count in BOTH localStorage AND Firebase
+async resetVisitorCount(newCount = 0, confirm = true) {
+    if (confirm && !window.confirm(`Reset visitor counter to ${newCount}? This will update Firebase and clear all local visitor data.`)) {
         return false;
     }
-    
-    // Clear all visitor data
-    localStorage.removeItem('portfolio-real-visitors');
-    localStorage.removeItem('portfolio-visited');
-    localStorage.removeItem('portfolio-first-visit');
-    localStorage.removeItem('portfolio-last-visitor');
-    localStorage.removeItem('portfolio-last-visit-time');
-    localStorage.removeItem('portfolio-total-sessions');
-    localStorage.removeItem('portfolio-analytics');
-    localStorage.removeItem('portfolio-fingerprint');
-    sessionStorage.clear();
-    
-    // Clear daily tracking
-    const keys = Object.keys(localStorage);
-    keys.forEach(key => {
-        if (key.startsWith('portfolio-daily-')) {
-            localStorage.removeItem(key);
-        }
-    });
-    
-    // Set new count
-    localStorage.setItem('portfolio-real-visitors', newCount.toString());
-    localStorage.setItem('portfolio-reset-date', new Date().toISOString());
-    
-    // Update display
-    const counterElement = document.getElementById('visitor-count');
-    if (counterElement) {
-        this.animateCounter(counterElement, newCount);
-    }
-    
-    // Broadcast reset to other tabs
+
     try {
-        const channel = new BroadcastChannel('portfolio-visitors');
-        channel.postMessage({ type: 'RESET_COUNTER', count: newCount });
-        channel.close();
+        // 1. Update Firebase FIRST
+        const db = firebase.database();
+        await db.ref('visitorCount').set(newCount);
+        console.log(`✅ Firebase counter reset to: ${newCount}`);
+
+        // 2. Clear all local visitor data
+        localStorage.removeItem('portfolio-real-visitors');
+        localStorage.removeItem('portfolio-visited');
+        localStorage.removeItem('portfolio-first-visit');
+        localStorage.removeItem('portfolio-last-visitor');
+        localStorage.removeItem('portfolio-last-visit-time');
+        localStorage.removeItem('portfolio-total-sessions');
+        localStorage.removeItem('portfolio-analytics');
+        localStorage.removeItem('portfolio-fingerprint');
+        sessionStorage.clear();
+
+        // 3. Clear daily tracking
+        const keys = Object.keys(localStorage);
+        keys.forEach(key => {
+            if (key.startsWith('portfolio-daily-')) {
+                localStorage.removeItem(key);
+            }
+        });
+
+        // 4. Set new count locally
+        localStorage.setItem('portfolio-real-visitors', newCount.toString());
+        localStorage.setItem('portfolio-reset-date', new Date().toISOString());
+
+        // 5. Update display
+        const counterElement = document.getElementById('visitor-count');
+        if (counterElement) {
+            this.animateCounter(counterElement, newCount);
+        }
+
+        // 6. Broadcast reset to other tabs
+        try {
+            const channel = new BroadcastChannel('portfolio-visitors');
+            channel.postMessage({ type: 'RESETCOUNTER', count: newCount });
+            channel.close();
+        } catch (error) {
+            console.warn('Reset broadcast failed:', error);
+        }
+
+        console.log(`✅ Visitor count reset to ${newCount} (Firebase + localStorage synced)`);
+        
+        // Show success message
+        alert(`✅ Counter successfully reset to ${newCount}!\n\nBoth Firebase and localStorage have been updated.`);
+        
+        return true;
+
     } catch (error) {
-        console.warn('Reset broadcast failed:', error);
+        console.error('❌ Failed to reset visitor count:', error);
+        alert(`❌ Failed to reset counter: ${error.message}\n\nPlease check Firebase connection.`);
+        return false;
     }
-    
-    console.log(`✅ Visitor count professionally reset to: ${newCount}`);
-    return true;
 }
 
 // Export analytics data
@@ -730,40 +747,55 @@ showAdminPanel() {
 }
 
 // UPDATED: Admin data loading with fixed calculations
-loadAdminData() {
-    const analytics = this.getVisitorAnalytics();
-    const currentCount = this.getCurrentVisitorCount();
-    
-    console.log('📊 Analytics Data:', analytics); // Debug log
-    
-    // FIXED: Update main stats with correct calculations
-    document.getElementById('admin-total-count').textContent = analytics.summary.totalVisits || 0;
-    document.getElementById('admin-unique-count').textContent = analytics.summary.uniqueVisitors || 0;
-    
-    // FIXED: Today's visits calculation
-    const today = new Date().toDateString();
-    const todayVisits = analytics.raw.filter(visit => {
-        const visitDate = new Date(visit.timestamp).toDateString();
-        return visitDate === today;
-    }).length;
-    document.getElementById('admin-today-count').textContent = todayVisits;
-    
-    // FIXED: Return rate calculation
-    const returnVisits = analytics.raw.filter(visit => visit.isReturning).length;
-    const returnRate = analytics.summary.totalVisits > 0 ? 
-        ((returnVisits / analytics.summary.totalVisits) * 100).toFixed(1) : 0;
-    document.getElementById('admin-return-rate').textContent = returnRate + '%';
-    
-    // Load enhanced charts with connection type
-    this.loadEnhancedDeviceChart(analytics.summary.deviceBreakdown);
-    this.loadEnhancedReferrerChart(analytics.summary.referrerBreakdown);
-    this.loadEnhancedBrowserChart(analytics.summary.browserBreakdown);
-    this.loadEnhancedConnectionChart(analytics.summary.connectionBreakdown); // NEW
-    
-    // FIXED: Load recent visitors (top 10 only)
-    this.loadEnhancedRecentVisitors(analytics.raw.slice(-10));
-    
-    console.log('📊 Admin dashboard data loaded successfully');
+async loadAdminData() {
+    try {
+        // Get current count from Firebase (not localStorage)
+        const db = firebase.database();
+        const snapshot = await db.ref('visitorCount').once('value');
+        const currentCount = snapshot.val() || 0;
+        
+        const analytics = this.getVisitorAnalytics();
+        
+        console.log('📊 Analytics Data:', analytics); // Debug log
+
+        // Update main stats with correct calculations
+        document.getElementById('admin-total-count').textContent = analytics.summary.totalVisits || 0;
+        document.getElementById('admin-unique-count').textContent = analytics.summary.uniqueVisitors || 0;
+
+        // Today's visits calculation
+        const today = new Date().toDateString();
+        const todayVisits = analytics.raw.filter(visit => {
+            const visitDate = new Date(visit.timestamp).toDateString();
+            return visitDate === today;
+        }).length;
+        document.getElementById('admin-today-count').textContent = todayVisits;
+
+        // Return rate calculation
+        const returnVisits = analytics.raw.filter(visit => visit.isReturning).length;
+        const returnRate = analytics.summary.totalVisits > 0 
+            ? (returnVisits / analytics.summary.totalVisits * 100).toFixed(1) 
+            : '0';
+        document.getElementById('admin-return-rate').textContent = returnRate + '%';
+
+        // ✅ Display FIREBASE count as well
+        const firebaseCountEl = document.getElementById('admin-firebase-count');
+        if (firebaseCountEl) {
+            firebaseCountEl.textContent = currentCount;
+        }
+
+        // Load enhanced charts
+        this.loadEnhancedDeviceChart(analytics.summary.deviceBreakdown);
+        this.loadEnhancedReferrerChart(analytics.summary.referrerBreakdown);
+        this.loadEnhancedBrowserChart(analytics.summary.browserBreakdown);
+        this.loadEnhancedConnectionChart(analytics.summary.connectionBreakdown);
+        this.loadEnhancedRecentVisitors(analytics.raw.slice(-10));
+
+        console.log('✅ Admin dashboard data loaded successfully');
+
+    } catch (error) {
+        console.error('❌ Failed to load admin data:', error);
+        alert('Failed to load admin data. Check console for details.');
+    }
 }
 
 loadEnhancedDeviceChart(devices) {

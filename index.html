@@ -1599,314 +1599,586 @@
             </div>
         </footer>
         <!-- Add this anywhere in your HTML (hidden by default) -->
-<!-- Add this anywhere in your HTML (hidden by default) -->
+<!-- Modern Admin Analytics Dashboard -->
 <div id="admin-analytics-panel" style="display: none;">
+    <div class="admin-backdrop"></div>
     <div class="admin-dashboard-content">
-        <h2>📊 Portfolio Analytics Dashboard</h2>
-        
+        <!-- Header -->
+        <div class="admin-header">
+            <div class="admin-logo">
+                <div class="logo-icon">📊</div>
+                <div class="logo-text">
+                    <h2>Analytics Dashboard</h2>
+                    <p>Real-time Portfolio Insights</p>
+                </div>
+            </div>
+            <button onclick="closeAdminPanel()" class="close-btn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Main Stats Grid -->
         <div class="admin-analytics-stats">
-            <div class="analytics-card">
-                <h3>Total Visitors</h3>
-                <div id="admin-total-count">0</div>
+            <div class="analytics-card card-gradient-1">
+                <div class="card-icon">👥</div>
+                <div class="card-content">
+                    <h3>Total Visitors</h3>
+                    <div class="stat-number" id="admin-total-count">0</div>
+                    <span class="stat-label">All Time</span>
+                </div>
+                <div class="card-shine"></div>
             </div>
-            <div class="analytics-card">
-                <h3>Unique Visitors</h3>
-                <div id="admin-unique-count">0</div>
+            
+            <div class="analytics-card card-gradient-2">
+                <div class="card-icon">✨</div>
+                <div class="card-content">
+                    <h3>Unique Visitors</h3>
+                    <div class="stat-number" id="admin-unique-count">0</div>
+                    <span class="stat-label">Tracked</span>
+                </div>
+                <div class="card-shine"></div>
             </div>
-            <div class="analytics-card">
-                <h3>Today's Visits</h3>
-                <div id="admin-today-count">0</div>
+            
+            <div class="analytics-card card-gradient-3">
+                <div class="card-icon">📅</div>
+                <div class="card-content">
+                    <h3>Today's Visits</h3>
+                    <div class="stat-number" id="admin-today-count">0</div>
+                    <span class="stat-label">Last 24h</span>
+                </div>
+                <div class="card-shine"></div>
             </div>
-            <div class="analytics-card">
-                <h3>Return Rate</h3>
-                <div id="admin-return-rate">0%</div>
+            
+            <div class="analytics-card card-gradient-4">
+                <div class="card-icon">🔄</div>
+                <div class="card-content">
+                    <h3>Return Rate</h3>
+                    <div class="stat-number" id="admin-return-rate">0%</div>
+                    <span class="stat-label">Returning</span>
+                </div>
+                <div class="card-shine"></div>
             </div>
         </div>
-        
+
+        <!-- Firebase Sync Status -->
+        <div class="firebase-status">
+            <span class="status-dot"></span>
+            <span>Firebase Synced: <strong id="admin-firebase-count">0</strong> visitors</span>
+        </div>
+
+        <!-- Charts Section -->
         <div class="admin-charts-section">
             <div class="chart-container">
-                <h4>🖥️ Device Types</h4>
-                <div id="device-chart"></div>
+                <div class="chart-header">
+                    <i class="fas fa-laptop"></i>
+                    <h4>Device Types</h4>
+                </div>
+                <div id="device-chart" class="chart-content"></div>
             </div>
+            
             <div class="chart-container">
-                <h4>🌐 Referrer Sources</h4>
-                <div id="referrer-chart"></div>
+                <div class="chart-header">
+                    <i class="fas fa-globe"></i>
+                    <h4>Referrer Sources</h4>
+                </div>
+                <div id="referrer-chart" class="chart-content"></div>
             </div>
+            
             <div class="chart-container">
-                <h4>🚀 Browser Types</h4>
-                <div id="browser-chart"></div>
+                <div class="chart-header">
+                    <i class="fas fa-browser"></i>
+                    <h4>Browser Types</h4>
+                </div>
+                <div id="browser-chart" class="chart-content"></div>
             </div>
+            
             <div class="chart-container">
-                <h4>📡 Connection Types</h4>
-                <div id="connection-chart"></div>
+                <div class="chart-header">
+                    <i class="fas fa-signal"></i>
+                    <h4>Connection Types</h4>
+                </div>
+                <div id="connection-chart" class="chart-content"></div>
             </div>
+        </div>
 
-        </div>
-        
+        <!-- Control Buttons -->
         <div class="admin-control-buttons">
-            <button onclick="refreshAdminData()">🔄 Refresh Data</button>
-            <button onclick="exportAnalytics()">📁 Export Analytics</button>
-            <button onclick="resetCounter()">🗑️ Reset Counter</button>
-            <button onclick="closeAdminPanel()">✖️ Close</button>
+            <button onclick="refreshAdminData()" class="admin-btn btn-refresh">
+                <i class="fas fa-sync-alt"></i>
+                <span>Refresh Data</span>
+            </button>
+            <button onclick="exportAnalytics()" class="admin-btn btn-export">
+                <i class="fas fa-download"></i>
+                <span>Export Analytics</span>
+            </button>
+            <button onclick="resetCounter()" class="admin-btn btn-reset">
+                <i class="fas fa-trash-alt"></i>
+                <span>Reset Counter</span>
+            </button>
         </div>
-        
+
+        <!-- Recent Visitors -->
         <div class="recent-visitors-section">
-            <h4>📋 Recent Visitors</h4>
-            <div id="visitor-details"></div>
+            <div class="section-title">
+                <i class="fas fa-history"></i>
+                <h4>Recent Visitors</h4>
+            </div>
+            <div id="visitor-details" class="visitor-list"></div>
         </div>
     </div>
 </div>
 <style>
-/* ADMIN PANEL STYLES - UNIQUE CLASSES TO AVOID CONFLICTS */
+/* ================================================================
+   MODERN ADMIN DASHBOARD - VIBRANT DESIGN
+   ================================================================ */
+
 #admin-analytics-panel {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.95);
     z-index: 99999;
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(15px);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.admin-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 }
 
 .admin-dashboard-content {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 2.5rem;
-    border-radius: 20px;
+    position: relative;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    padding: 2rem;
+    border-radius: 24px;
     max-width: 95vw;
     max-height: 95vh;
     overflow-y: auto;
-    color: white;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.admin-dashboard-content h2 {
-    text-align: center;
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Custom Scrollbar */
+.admin-dashboard-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.admin-dashboard-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.admin-dashboard-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #667eea, #764ba2);
+    border-radius: 10px;
+}
+
+/* Header */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 2rem;
-    font-size: 1.8rem;
-    font-weight: 600;
-    background: linear-gradient(45deg, #FFD700, #FFA500);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 
+.admin-logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-icon {
+    font-size: 3rem;
+    animation: rotate3d 3s ease-in-out infinite;
+}
+
+@keyframes rotate3d {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(360deg); }
+}
+
+.logo-text h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+}
+
+.logo-text p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.close-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    background: rgba(255, 77, 77, 0.3);
+    transform: rotate(90deg) scale(1.1);
+}
+
+/* Stats Cards */
 .admin-analytics-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1.5rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
 }
 
-/* UNIQUE CLASS - WON'T CONFLICT WITH YOUR EXISTING .stat-card */
 .analytics-card {
-    background: rgba(255, 255, 255, 0.15);
-    padding: 1.8rem;
-    border-radius: 15px;
-    text-align: center;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    padding: 1.8rem;
+    border-radius: 16px;
     overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.analytics-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #FFD700, transparent);
-    transition: left 0.5s ease;
+.card-gradient-1 {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-.analytics-card:hover::before {
-    left: 100%;
+.card-gradient-2 {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.card-gradient-3 {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.card-gradient-4 {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
 }
 
 .analytics-card:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
-.analytics-card h3 {
-    margin: 0 0 1rem 0;
-    font-size: 1rem;
+.card-shine {
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.card-content h3 {
+    font-size: 0.9rem;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.9);
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.analytics-card div {
+.stat-number {
     font-size: 2.8rem;
-    font-weight: bold;
-    color: #FFD700;
-    text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 800;
+    color: white;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    margin: 0.3rem 0;
 }
 
+.stat-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Firebase Status */
+.firebase-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: rgba(67, 233, 123, 0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(67, 233, 123, 0.3);
+    margin-bottom: 2rem;
+    color: #43e97b;
+    font-size: 0.95rem;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    background: #43e97b;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 0 0 rgba(67, 233, 123, 0.7);
+    }
+    50% {
+        opacity: 0.7;
+        box-shadow: 0 0 0 10px rgba(67, 233, 123, 0);
+    }
+}
+
+/* Charts Section */
 .admin-charts-section {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .chart-container {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
     padding: 1.5rem;
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
+    border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 }
 
-.chart-container h4 {
-    margin: 0 0 1rem 0;
+.chart-container:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-4px);
+}
+
+.chart-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.chart-header i {
+    font-size: 1.2rem;
+    color: #667eea;
+}
+
+.chart-header h4 {
     font-size: 1.1rem;
-    color: #FFD700;
-    text-align: center;
+    font-weight: 600;
+    margin: 0;
 }
 
+.chart-content {
+    margin-top: 1rem;
+}
+
+/* Control Buttons */
 .admin-control-buttons {
     display: flex;
     gap: 1rem;
-    margin: 2.5rem 0;
+    margin: 2rem 0;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-.admin-control-buttons button {
-    padding: 0.8rem 1.8rem;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
+.admin-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 1.8rem;
     border: none;
-    border-radius: 25px;
+    border-radius: 12px;
     cursor: pointer;
     font-weight: 600;
     font-size: 0.95rem;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    min-width: 140px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
 }
 
-.admin-control-buttons button:hover {
+.btn-refresh {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+.btn-export {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: white;
+}
+
+.btn-reset {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+    color: white;
+}
+
+.admin-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
     background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.admin-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.admin-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-.admin-control-buttons button:active {
-    transform: translateY(-1px);
-}
-
-.recent-visitors-section {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 1.5rem;
-    border-radius: 15px;
-    margin-top: 2rem;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.recent-visitors-section h4 {
-    margin: 0 0 1rem 0;
-    color: #FFD700;
+.admin-btn i {
     font-size: 1.1rem;
 }
 
-#visitor-details {
+/* Recent Visitors */
+.recent-visitors-section {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.section-title i {
+    font-size: 1.2rem;
+    color: #667eea;
+}
+
+.section-title h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.visitor-list {
     max-height: 300px;
     overflow-y: auto;
     padding-right: 10px;
 }
 
-#visitor-details::-webkit-scrollbar {
+.visitor-list::-webkit-scrollbar {
     width: 6px;
 }
 
-#visitor-details::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-}
-
-#visitor-details::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
+.visitor-list::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.5);
     border-radius: 3px;
 }
 
 .visitor-log-item {
-    padding: 0.8rem;
+    padding: 1rem;
     margin: 0.5rem 0;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border-left: 3px solid #667eea;
     font-size: 0.9rem;
-    line-height: 1.4;
-    border-left: 3px solid #FFD700;
+    color: rgba(255, 255, 255, 0.9);
     transition: all 0.3s ease;
 }
 
 .visitor-log-item:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateX(5px);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(8px);
 }
 
+/* Chart Bars */
 .chart-bar {
-    background: rgba(255, 255, 255, 0.2);
-    height: 12px;
-    border-radius: 6px;
-    margin: 8px 0;
+    background: rgba(255, 255, 255, 0.1);
+    height: 14px;
+    border-radius: 7px;
+    margin: 10px 0;
     overflow: hidden;
     position: relative;
 }
 
 .chart-fill {
     height: 100%;
-    border-radius: 6px;
+    border-radius: 7px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
     transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-}
-
-.chart-fill::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .admin-dashboard-content {
         padding: 1.5rem;
-        margin: 1rem;
     }
     
     .admin-analytics-stats {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
     }
     
-    .analytics-card {
-        padding: 1.2rem;
-    }
-    
-    .analytics-card div {
+    .stat-number {
         font-size: 2.2rem;
     }
     
@@ -1916,16 +2188,14 @@
     
     .admin-control-buttons {
         flex-direction: column;
-        align-items: center;
     }
     
-    .admin-control-buttons button {
+    .admin-btn {
         width: 100%;
-        max-width: 250px;
+        justify-content: center;
     }
 }
 </style>
-
     </main>
 
     <!-- Back to Top Button -->
