@@ -41,6 +41,7 @@ class NavigationManager {
         }
     }
 
+
     init() {
         if (this.isInitialized) return;
         
@@ -69,6 +70,7 @@ class NavigationManager {
             console.error('❌ Navigation System initialization failed:', error);
         }
     }
+
 
     // ================================================================
     // ELEMENT CACHING AND SETUP
@@ -101,6 +103,7 @@ class NavigationManager {
         
         console.log(`📏 Navbar height: ${this.navHeight}px`);
     }
+
 
     // ================================================================
     // NAVIGATION LINKS INITIALIZATION
@@ -192,6 +195,7 @@ class NavigationManager {
         });
     }
 
+
     // ================================================================
     // SMOOTH SCROLLING SYSTEM
     // ================================================================
@@ -206,26 +210,28 @@ class NavigationManager {
     }
     
     smoothScrollToSection(targetElement) {
+        // ADDED: Guard against scroll when input is focused (MOBILE FIX)
+        const el = document.activeElement;
+        if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable)) {
+            return;
+        }
+        
         if (!targetElement || this.isScrolling) return;
         
         this.isScrolling = true;
-        
         const startPosition = window.pageYOffset;
         const targetPosition = targetElement.offsetTop - this.scrollSettings.offset;
         const distance = targetPosition - startPosition;
         const duration = this.scrollSettings.duration;
-        
         let startTime = null;
         
         const animateScroll = (currentTime) => {
             if (startTime === null) startTime = currentTime;
-            
             const timeElapsed = currentTime - startTime;
             const progress = Math.min(timeElapsed / duration, 1);
             
             // Easing function
             const easeProgress = this.easeInOutCubic(progress);
-            
             window.scrollTo(0, startPosition + distance * easeProgress);
             
             if (progress < 1) {
@@ -243,6 +249,7 @@ class NavigationManager {
         return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
     }
 
+
     // ================================================================
     // SCROLL SPY SYSTEM
     // ================================================================
@@ -258,6 +265,7 @@ class NavigationManager {
                 
                 if (entry.isIntersecting) {
                     this.activeSection = sectionId;
+                    
                     if (navLink && !this.isScrolling) {
                         this.setActiveLink(navLink);
                     }
@@ -274,7 +282,6 @@ class NavigationManager {
         });
         
         this.observers.push(scrollSpyObserver);
-        
         console.log('✅ Scroll spy initialized');
     }
     
@@ -315,6 +322,7 @@ class NavigationManager {
         
         return 'hero'; // Default to hero section
     }
+
 
     // ================================================================
     // MOBILE MENU SYSTEM
@@ -366,7 +374,6 @@ class NavigationManager {
         if (!this.navMenu || !this.hamburger) return;
         
         this.isMobileMenuOpen = true;
-        
         this.navMenu.classList.add('active');
         this.hamburger.classList.add('active');
         
@@ -393,7 +400,6 @@ class NavigationManager {
         if (!this.navMenu || !this.hamburger || !this.isMobileMenuOpen) return;
         
         this.isMobileMenuOpen = false;
-        
         this.navMenu.classList.remove('active');
         this.hamburger.classList.remove('active');
         
@@ -410,6 +416,7 @@ class NavigationManager {
         
         console.log('📱 Mobile menu closed');
     }
+
 
     // ================================================================
     // NAVBAR EFFECTS
@@ -470,47 +477,48 @@ class NavigationManager {
     }
     
     setupLogoAnimation() {
-    if (!this.logoText) return;
-
-    // Store original styles
-    const originalText = this.logoText.textContent;
-    const originalStyles = window.getComputedStyle(this.logoText);
-    
-    // Clear text for typing effect
-    this.logoText.textContent = '';
-    
-    // Ensure visibility during typing
-    this.logoText.style.opacity = '1';
-    this.logoText.style.visibility = 'visible';
-    
-    let i = 0;
-    const typeInterval = setInterval(() => {
-        this.logoText.textContent += originalText.charAt(i);
-        i++;
-
-        if (i >= originalText.length) {
-            clearInterval(typeInterval);
+        if (!this.logoText) return;
+        
+        // Store original styles
+        const originalText = this.logoText.textContent;
+        const originalStyles = window.getComputedStyle(this.logoText);
+        
+        // Clear text for typing effect
+        this.logoText.textContent = '';
+        
+        // Ensure visibility during typing
+        this.logoText.style.opacity = '1';
+        this.logoText.style.visibility = 'visible';
+        
+        let i = 0;
+        const typeInterval = setInterval(() => {
+            this.logoText.textContent += originalText.charAt(i);
+            i++;
             
-            // FIXED: Keep text visible after typing
-            setTimeout(() => {
-                // Ensure text remains visible
-                this.logoText.style.opacity = '1';
-                this.logoText.style.visibility = 'visible';
+            if (i >= originalText.length) {
+                clearInterval(typeInterval);
                 
-                // Apply gradient background if defined in CSS
-                this.logoText.style.background = 'var(--gradient-primary)';
-                this.logoText.style.webkitBackgroundClip = 'text';
-                this.logoText.style.webkitTextFillColor = 'transparent';
-                this.logoText.style.backgroundClip = 'text';
-                
-                // Add subtle pulse effect (not animation that makes it disappear)
-                this.logoText.classList.add('logo-visible');
-                
-                console.log('✅ Logo typing completed and remains visible');
-            }, 200);
-        }
-    }, 120); // Slightly slower typing for better effect
-}
+                // FIXED: Keep text visible after typing
+                setTimeout(() => {
+                    // Ensure text remains visible
+                    this.logoText.style.opacity = '1';
+                    this.logoText.style.visibility = 'visible';
+                    
+                    // Apply gradient background if defined in CSS
+                    this.logoText.style.background = 'var(--gradient-primary)';
+                    this.logoText.style.webkitBackgroundClip = 'text';
+                    this.logoText.style.webkitTextFillColor = 'transparent';
+                    this.logoText.style.backgroundClip = 'text';
+                    
+                    // Add subtle pulse effect (not animation that makes it disappear)
+                    this.logoText.classList.add('logo-visible');
+                    
+                    console.log('✅ Logo typing completed and remains visible');
+                }, 200);
+            }
+        }, 120); // Slightly slower typing for better effect
+    }
+
 
     // ================================================================
     // PAGE TRANSITIONS
@@ -543,7 +551,6 @@ class NavigationManager {
         // Execute callback and remove overlay
         setTimeout(() => {
             if (callback) callback();
-            
             setTimeout(() => {
                 overlay.style.opacity = '0';
                 setTimeout(() => {
@@ -552,6 +559,7 @@ class NavigationManager {
             }, 200);
         }, 300);
     }
+
 
     // ================================================================
     // EVENT LISTENERS
@@ -572,7 +580,6 @@ class NavigationManager {
     
     handleScroll() {
         clearTimeout(this.scrollTimeout);
-        
         this.scrollTimeout = setTimeout(() => {
             if (!this.isScrolling) {
                 this.updateActiveLink();
@@ -582,7 +589,6 @@ class NavigationManager {
     
     handleResize() {
         clearTimeout(this.resizeTimeout);
-        
         this.resizeTimeout = setTimeout(() => {
             console.log('📱 Navigation responsive adjustment');
             
@@ -625,6 +631,7 @@ class NavigationManager {
         }
     }
 
+
     // ================================================================
     // UTILITY FUNCTIONS
     // ================================================================
@@ -661,6 +668,7 @@ class NavigationManager {
             rect.right <= (window.innerWidth || document.documentElement.clientWidth)
         );
     }
+
 
     // ================================================================
     // PUBLIC API
@@ -716,6 +724,7 @@ class NavigationManager {
         console.log('✅ Navigation system destroyed');
     }
 }
+
 
 // ================================================================
 // INITIALIZATION AND EXPORT

@@ -3,7 +3,11 @@
  * HERO SECTION JAVASCRIPT
  * Complete Hero Section Functionality with Animations & Interactions
  * ================================================================ */
-
+// ADDED: Utility function to check if form input is focused (MOBILE FIX)
+function isFormInputFocused() {
+    const el = document.activeElement;
+    return el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable);
+}
 class HeroSection {
     constructor() {
         this.isInitialized = false;
@@ -217,52 +221,54 @@ checkReturningVisitor(sessionId) {
 
 async getRealVisitorCount() {
     try {
-        // Try multiple methods to get real visitor count
-        let count = 0;
+        // FIXED: Get synchronized count from CountAPI server
+        const response = await fetch('https://api.countapi.xyz/get/harishk-portfolio-sync/visitors');
+        const data = await response.json();
         
-        // Method 1: Browser-based storage with validation
-        const storedCount = localStorage.getItem('portfolio-real-visitors');
-        if (storedCount) {
-            count = parseInt(storedCount);
+        if (data && data.value !== undefined) {
+            console.log(`📊 Synchronized count from server: ${data.value}`);
+            return data.value;
         }
         
-        // Method 2: Cross-tab synchronization
-        const broadcastCount = await this.getBroadcastVisitorCount();
-        if (broadcastCount > count) {
-            count = broadcastCount;
-        }
-        
-        // Method 3: Network-based validation (if available)
-        const networkCount = await this.getNetworkVisitorCount();
-        if (networkCount && networkCount > count) {
-            count = networkCount;
-        }
-        
-        // FIXED: Professional start from 0 (no fake baseline)
-        console.log(`📊 Current visitor count retrieved: ${count}`);
-        return count;
+        console.warn('CountAPI returned invalid data');
+        return 0;
         
     } catch (error) {
-        console.warn('Error getting visitor count, starting fresh:', error);
-        return 0; // Start from 0 on any errors
+        console.error('❌ Failed to fetch synchronized count:', error);
+        return 0;
     }
 }
 
-incrementVisitorCount(currentCount, sessionId) {
-    const newCount = currentCount + 1;
-    
-    // Store in multiple places for persistence and backup
-    localStorage.setItem('portfolio-real-visitors', newCount.toString());
-    localStorage.setItem('portfolio-last-visitor', sessionId);
-    localStorage.setItem('portfolio-last-visit-time', Date.now());
-    localStorage.setItem('portfolio-total-sessions', this.getTotalSessions() + 1);
-    
-    // Broadcast to other tabs
-    this.broadcastVisitorCount(newCount);
-    
-    console.log(`📈 Visitor count incremented: ${currentCount} → ${newCount}`);
-    return newCount;
+
+async incrementVisitorCount(currentCount, sessionId) {
+    try {
+        // FIXED: Increment on CountAPI server (syncs across all devices)
+        const response = await fetch('https://api.countapi.xyz/hit/harishk-portfolio-sync/visitors');
+        const data = await response.json();
+        
+        if (data && data.value !== undefined) {
+            const newCount = data.value;
+            console.log(`📈 Count incremented on server: ${newCount}`);
+            
+            // Store session info locally (not the count)
+            localStorage.setItem('portfolio-last-visitor', sessionId);
+            localStorage.setItem('portfolio-last-visit-time', Date.now().toString());
+            
+            // Broadcast to other tabs
+            this.broadcastVisitorCount(newCount);
+            
+            return newCount;
+        }
+        
+        console.warn('Failed to increment on server');
+        return currentCount;
+        
+    } catch (error) {
+        console.error('❌ Failed to increment count:', error);
+        return currentCount;
+    }
 }
+
 
 // NEW: Track total sessions
 getTotalSessions() {
@@ -481,38 +487,48 @@ getReferrerType(referrer) {
 animateCounter(element, targetCount) {
     const startCount = parseInt(element.textContent) || 0;
     
-    // Skip animation if no change
-    if (startCount === targetCount) return;
+    // FIXED: Show target immediately if no animation needed
+    if (startCount === targetCount) {
+        element.textContent = targetCount;
+        return;
+    }
     
-    const increment = (targetCount - startCount) / 60; // 60 steps for smoother animation
-    let currentCount = startCount;
+    const duration = 2000; // 2 seconds
+    const startTime = performance.now();
     
-    // Add loading animation
-    element.style.opacity = '0.8';
-    element.style.transform = 'scale(0.95)';
-    
-    const timer = setInterval(() => {
-        currentCount += increment;
+    const animate = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1); // Ensure max 1
         
-        if ((increment > 0 && currentCount >= targetCount) || 
-            (increment < 0 && currentCount <= targetCount)) {
-            currentCount = targetCount;
-            clearInterval(timer);
+        // Smooth easing
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const current = startCount + (targetCount - startCount) * easeOut;
+        
+        if (progress < 1) {
+            element.textContent = Math.round(current);
+            requestAnimationFrame(animate);
+        } else {
+            // FIXED: Force exact target value
+            element.textContent = targetCount;
+            console.log(`✅ Counter animation complete: ${targetCount}`);
             
-            // Reset styles
-            element.style.opacity = '1';
-            element.style.transform = 'scale(1)';
-            
-            // Add success animation
+            // Success animation
             element.style.transform = 'scale(1.1)';
             setTimeout(() => {
                 element.style.transform = 'scale(1)';
-            }, 300);
+            }, 200);
         }
-        
-        element.textContent = Math.floor(currentCount);
-    }, 16); // ~60fps animation
+    };
+    
+    element.style.opacity = '0.8';
+    element.style.transform = 'scale(0.95)';
+    requestAnimationFrame(animate);
+    
+    setTimeout(() => {
+        element.style.opacity = '1';
+    }, 100);
 }
+
 
 // ================================================================
 // PROFESSIONAL ADMIN METHODS - ENHANCED WITH FIXED CALCULATIONS
@@ -1132,7 +1148,7 @@ getReferrerEmoji(referrer) {
         navButtons.forEach(button => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
-                
+                if (isFormInputFocused()) return;
                 const target = button.getAttribute('data-navigate');
                 const targetElement = document.getElementById(target);
                 
@@ -1281,6 +1297,7 @@ getReferrerEmoji(referrer) {
         
         if (scrollIndicator) {
             scrollIndicator.addEventListener('click', () => {
+                if (isFormInputFocused()) return;
                 const aboutSection = document.getElementById('about');
                 
                 if (aboutSection) {

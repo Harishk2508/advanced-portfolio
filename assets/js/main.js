@@ -2,7 +2,14 @@
  * ================================================================
  * HARISH K - SINGLE PAGE PORTFOLIO JAVASCRIPT
  * FIXED: Auto-Refreshing LeetCode Stats + Responsive Number Issues
- * ================================================================ */
+ * ================================================================
+ */
+
+// ADDED: Utility function to check if form input is focused
+function isFormInputFocused() {
+    const el = document.activeElement;
+    return el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable);
+}
 
 class SinglePagePortfolio {
     constructor() {
@@ -26,6 +33,7 @@ class SinglePagePortfolio {
         
         this.init();
     }
+
 
     init() {
         console.log('🚀 Initializing Single Page Portfolio...');
@@ -61,6 +69,7 @@ class SinglePagePortfolio {
         
         console.log('✅ Single Page Portfolio initialized successfully!');
     }
+
 
     // ================================================================
     // FIXED: RESPONSIVE HANDLING SYSTEM
@@ -148,6 +157,7 @@ class SinglePagePortfolio {
         };
     }
 
+
     // ================================================================
     // AUTO-REFRESH STATS ON PAGE LOAD
     // ================================================================
@@ -218,6 +228,7 @@ class SinglePagePortfolio {
         }
     }
 
+
     // ================================================================
     // IMMEDIATE NAME FIX
     // ================================================================
@@ -272,6 +283,7 @@ class SinglePagePortfolio {
         typeCharacter();
     }
 
+
     // ================================================================
     // SHOW ALL SECTIONS
     // ================================================================
@@ -284,6 +296,7 @@ class SinglePagePortfolio {
             section.classList.add('active');
         });
     }
+
 
     // ================================================================
     // FIXED NAVIGATION SYSTEM
@@ -307,6 +320,9 @@ class SinglePagePortfolio {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
+                
+                // ADDED: Guard against scroll when input is focused
+                if (isFormInputFocused()) return;
                 
                 console.log(`🎯 Nav clicked: ${sectionName}`);
                 
@@ -376,12 +392,19 @@ class SinglePagePortfolio {
         }
     }
 
+
     // ================================================================
     // SCROLL FUNCTIONALITY
     // ================================================================
     
     initializeScrolling() {
         document.addEventListener('keydown', (e) => {
+            // Only trigger section scroll if NOT focused in an input, textarea, or contenteditable
+            const tag = e.target.tagName.toLowerCase();
+            const isTextInput = tag === 'input' || tag === 'textarea' || e.target.isContentEditable;
+            if (isTextInput) {
+                return; // Let the user type space/newlines etc!
+            }
             if (e.key === 'ArrowDown' || e.key === ' ') {
                 e.preventDefault();
                 this.scrollToNextSection();
@@ -407,6 +430,9 @@ class SinglePagePortfolio {
     }
     
     scrollToSection(index) {
+        // ADDED: Guard against scroll when input is focused
+        if (isFormInputFocused()) return;
+        
         if (index < 0 || index >= this.sections.length || this.isScrolling) {
             return;
         }
@@ -428,6 +454,7 @@ class SinglePagePortfolio {
             }, 1000);
         }
     }
+
 
     // ================================================================
     // SECTION OBSERVER
@@ -460,6 +487,7 @@ class SinglePagePortfolio {
             }
         });
     }
+
 
     // ================================================================
     // SECTION INITIALIZATIONS
@@ -502,6 +530,7 @@ class SinglePagePortfolio {
         this.initializeContactForm();
     }
 
+
     // ================================================================
     // HERO SECTION FUNCTIONS (SIMPLIFIED - NO REFRESH BUTTON)
     // ================================================================
@@ -522,6 +551,10 @@ class SinglePagePortfolio {
         navButtons.forEach(button => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
+                
+                // ADDED: Guard against scroll when input is focused
+                if (isFormInputFocused()) return;
+                
                 const target = button.getAttribute('data-navigate');
                 const targetElement = document.getElementById(target);
                 if (targetElement) {
@@ -538,6 +571,9 @@ class SinglePagePortfolio {
         const scrollIndicator = document.querySelector('.scroll-indicator');
         if (scrollIndicator) {
             scrollIndicator.addEventListener('click', () => {
+                // ADDED: Guard against scroll when input is focused
+                if (isFormInputFocused()) return;
+                
                 const aboutSection = document.getElementById('about');
                 if (aboutSection) {
                     aboutSection.scrollIntoView({
@@ -550,6 +586,7 @@ class SinglePagePortfolio {
         
         console.log('📝 Refresh button removed - stats auto-update on page load');
     }
+
 
     // ================================================================
     // FIXED: HERO STATS (AUTO-UPDATED DATA WITH CORRECT NUMBERS)
@@ -602,6 +639,7 @@ class SinglePagePortfolio {
         // Update timestamp
         this.updateStatsTimestamp('hero', 'auto-updated');
     }
+
 
     // ================================================================
     // FIXED: ABOUT SECTION FUNCTIONS (EXACT NUMBERS)
@@ -679,6 +717,7 @@ class SinglePagePortfolio {
         this.updateStatsTimestamp('about', 'auto-updated');
     }
 
+
     // ================================================================
     // PROJECTS SECTION FUNCTIONS
     // ================================================================
@@ -732,6 +771,7 @@ class SinglePagePortfolio {
         });
     }
 
+
     // ================================================================
     // FIXED: SKILLS SECTION FUNCTIONS
     // ================================================================
@@ -759,6 +799,7 @@ class SinglePagePortfolio {
         });
     }
 
+
     // ================================================================
     // CONTACT SECTION FUNCTIONS
     // ================================================================
@@ -785,6 +826,7 @@ class SinglePagePortfolio {
             form.reset();
         }, 2000);
     }
+
 
     // ================================================================
     // UTILITY FUNCTIONS
@@ -894,6 +936,9 @@ class SinglePagePortfolio {
             });
             
             backToTop.addEventListener('click', () => {
+                // ADDED: Guard against scroll when input is focused
+                if (isFormInputFocused()) return;
+                
                 const heroSection = document.getElementById('hero');
                 if (heroSection) {
                     heroSection.scrollIntoView({
@@ -905,10 +950,10 @@ class SinglePagePortfolio {
         }
     }
 
+
     // ================================================================
-    // FIXED: NUMBER ANIMATION WITH PROPER COMPLETION
+    // FIXED: NUMBER ANIMATION WITH GUARANTEED COMPLETION
     // ================================================================
-    
     animateNumberComplete(element, start, end, duration, suffix = '') {
         const startTime = performance.now();
         const range = end - start;
@@ -916,57 +961,61 @@ class SinglePagePortfolio {
         
         const updateNumber = (currentTime) => {
             const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
+            const progress = Math.min(elapsed / duration, 1); // Ensure max is 1
             
             // Smooth easing function
             const easeOut = 1 - Math.pow(1 - progress, 3);
             const current = start + (range * easeOut);
             
-            // FIXED: Proper number formatting
-            if (isDecimal) {
-                element.textContent = current.toFixed(1) + suffix;
-            } else {
-                element.textContent = Math.floor(current) + suffix;
-            }
-            
             if (progress < 1) {
+                // Still animating
+                if (isDecimal) {
+                    element.textContent = current.toFixed(1) + suffix;
+                } else {
+                    element.textContent = Math.round(current) + suffix;
+                }
                 requestAnimationFrame(updateNumber);
             } else {
-                // FIXED: Ensure final value is exact
+                // CRITICAL: Animation complete - FORCE exact final value
                 if (isDecimal) {
                     element.textContent = end.toFixed(1) + suffix;
                 } else {
                     element.textContent = end + suffix;
                 }
-                
-                console.log(`✅ Animation complete: ${element.textContent}`);
+                console.log(`✅ Animation complete - EXACT VALUE: ${element.textContent}`);
             }
         };
         
         requestAnimationFrame(updateNumber);
     }
-    
+
     // Legacy method for compatibility
     animateNumber(element, start, end, duration) {
         this.animateNumberComplete(element, start, end, duration, '');
     }
 }
 
+
 // ================================================================
 // INITIALIZATION
 // ================================================================
 
+
 let portfolio;
+
 
 document.addEventListener('DOMContentLoaded', () => {
     portfolio = new SinglePagePortfolio();
 });
 
+
 window.addEventListener('load', () => {
     console.log('All resources loaded - Portfolio ready!');
 });
 
+
 window.portfolio = portfolio;
+
 
 // Add CSS animations for messages
 const style = document.createElement('style');

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, height=device-height">
     <title>Harish K - ML/NLP Engineer Portfolio</title>
     
     <!-- Fonts -->
@@ -31,7 +31,7 @@
                 <li><a href="#about" class="nav-link" data-section="about"><i class="fas fa-user"></i> About</a></li>
                 <li><a href="#projects" class="nav-link" data-section="projects"><i class="fas fa-tasks"></i> Projects</a></li>
                 <li><a href="#skills" class="nav-link" data-section="skills"><i class="fas fa-tools"></i> Skills</a></li>
-                <!-- <li><a href="certifications.html" class="nav-link external-link" data-section="certifications"><i class="fas fa-certificate"></i> Certifications</a></li> -->
+                <li><a href="certifications.html" class="nav-link external-link" data-section="certifications"><i class="fas fa-certificate"></i> Certifications</a></li>
                 <li><a href="#contact" class="nav-link" data-section="contact"><i class="fas fa-envelope"></i> Contact</a></li>
             </ul>
             <div class="hamburger" id="hamburger">
@@ -1344,9 +1344,11 @@
 
 
         <!-- Contact Section -->
-       <section id="contact" class="section-container">
+<!-- Contact Section - COMPLETELY REDESIGNED -->
+<section id="contact" class="section-container">
     <div class="contact-content">
         <div class="contact-container">
+            
             <!-- Section Header -->
             <div class="section-header">
                 <div class="section-badge">
@@ -1356,79 +1358,14 @@
                 <h2 class="section-title">Get In Touch</h2>
                 <div class="section-line"></div>
                 <p class="section-subtitle">
-                    Ready to discuss opportunities, collaborations, or just say hello? Let's connect!
+                    Have a project in mind or want to discuss opportunities? I'd love to hear from you!
                 </p>
             </div>
-            
-            <!-- Main Content -->
+
+            <!-- Main Contact Content -->
             <div class="contact-main">
-                <!-- Contact Form -->
-                <div class="contact-form-section">
-                    <div class="form-header">
-                        <h3>Send me a message</h3>
-                        <p>I'll get back to you within 24 hours</p>
-                    </div>
-                    <!-- FIXED FORMSPREE FORM -->
-                    <form 
-                        class="contact-form" 
-                        id="contact-form"
-                        action="https://formspree.io/f/mpwydnrd"
-                        method="POST"
-                        accept-charset="UTF-8"
-                    >
-                        <!-- Hidden Formspree Fields -->
-                        <input type="hidden" name="_subject" value="New Portfolio Contact Form Submission">
-                        <input type="hidden" name="_next" value="#contact">
-                        <input type="hidden" name="_captcha" value="false">
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Full Name *</label>
-                                <input 
-                                    type="text" 
-                                    id="name" 
-                                    name="name" 
-                                    required
-                                    autocomplete="name"
-                                    placeholder="Enter your full name"
-                                >
-                                <div class="input-line"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email Address *</label>
-                                <input 
-                                    type="email" 
-                                    id="email" 
-                                    name="email" 
-                                    required
-                                    autocomplete="email"
-                                    placeholder="Enter your email address"
-                                >
-                                <div class="input-line"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group full-width">
-                            <label for="message">Message *</label>
-                            <textarea 
-                                id="message" 
-                                name="message" 
-                                rows="6" 
-                                required 
-                                placeholder="Tell me about your project, opportunity, or just say hello..."
-                                maxlength="1000"
-                            ></textarea>
-                            <div class="input-line"></div>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary submit-btn">
-                            <span class="btn-text">Send Message</span>
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </form>
-                </div>
                 
-                <!-- Contact Information -->
+                <!-- Contact Information Cards - NOW FIRST -->
                 <div class="contact-info-section">
                     <div class="info-header">
                         <h3>Contact Information</h3>
@@ -1436,6 +1373,7 @@
                     </div>
                     
                     <div class="contact-methods">
+                        <!-- Email -->
                         <div class="contact-method">
                             <div class="method-icon">
                                 <i class="fas fa-envelope"></i>
@@ -1443,10 +1381,13 @@
                             <div class="method-details">
                                 <h4>Email</h4>
                                 <p>harishkmlengineer@gmail.com</p>
-                                <a href="mailto:harishkmlengineer@gmail.com" class="method-link">Send Email</a>
+                                <a href="mailto:harishkmlengineer@gmail.com" class="method-link">
+                                    Send Email
+                                </a>
                             </div>
                         </div>
-                        
+
+                        <!-- Phone -->
                         <div class="contact-method">
                             <div class="method-icon">
                                 <i class="fas fa-phone"></i>
@@ -1454,10 +1395,13 @@
                             <div class="method-details">
                                 <h4>Phone</h4>
                                 <p>+91 7558152169</p>
-                                <a href="tel:+917558152169" class="method-link">Call Now</a>
+                                <a href="tel:+917558152169" class="method-link">
+                                    Call Now
+                                </a>
                             </div>
                         </div>
-                        
+
+                        <!-- LinkedIn -->
                         <div class="contact-method">
                             <div class="method-icon">
                                 <i class="fab fa-linkedin"></i>
@@ -1465,25 +1409,89 @@
                             <div class="method-details">
                                 <h4>LinkedIn</h4>
                                 <p>Professional Network</p>
-                                <a href="https://linkedin.com/in/harish-kumar-kingston-pydev" target="_blank" class="method-link">Connect</a>
+                                <a href="https://linkedin.com/in/harish-kumar-kingston-pydev" 
+                                   target="_blank" class="method-link">
+                                    Connect
+                                </a>
                             </div>
                         </div>
+
+                        <!-- Instagram -->
                         <div class="contact-method">
                             <div class="method-icon">
                                 <i class="fab fa-instagram"></i>
                             </div>
                             <div class="method-details">
                                 <h4>Instagram</h4>
-                                <p>@harish_kumar_mc_</p>
-                                <a href="https://www.instagram.com/harish_kumar_mc_" target="_blank" class="method-link">Visit Profile</a>
+                                <p>@harishkumarmc</p>
+                                <a href="https://www.instagram.com/harishkumarmc" 
+                                   target="_blank" class="method-link">
+                                    Visit Profile
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Contact Form - NOW SECOND -->
+                <div class="contact-form-section">
+                    <div class="form-header">
+                        <h3>Send Me a Message</h3>
+                        <p>I'll get back to you within 24 hours</p>
+                    </div>
+
+                    <!-- Formspree Form -->
+                    <form class="contact-form" id="contact-form" 
+                          action="https://formspree.io/f/mpwydnrd" 
+                          method="POST">
+                        
+                        <!-- Name Field -->
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" 
+                                   id="name" 
+                                   name="name" 
+                                   required 
+                                   placeholder="Enter your full name">
+                        </div>
+
+                        <!-- Email Field -->
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" 
+                                   id="email" 
+                                   name="email" 
+                                   required 
+                                   placeholder="Enter your email address">
+                        </div>
+
+                        <!-- Message Field -->
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" 
+                                      name="message" 
+                                      rows="5" 
+                                      required 
+                                      placeholder="Tell me about your project or just say hello..."
+                                      maxlength="1000"></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary submit-btn">
+                            <span class="btn-text">Send Message</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+
+                        <!-- Form Status Messages -->
+                        <div class="form-status" id="form-status"></div>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
 </section>
+
 
                 <!-- Footer Section -->
         <footer class="footer">
@@ -1579,9 +1587,7 @@
                                 <p>&copy; 2025 Harish K. All rights reserved.</p>
                                 <p class="footer-built">Built with ❤️ using modern web technologies</p>
                             </div>
-                            <div class="footer-bottom-links">
-                                <a href="#contact">Contact</a>
-                            </div>
+                            
                         </div>
                         
                         <!-- Back to Top Button -->

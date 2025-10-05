@@ -1,21 +1,21 @@
 /**
  * ================================================================
- * CONTACT SECTION JAVASCRIPT - FORMSPREE INTEGRATION FIXED
+ * CONTACT SECTION JAVASCRIPT - CLEAN & MOBILE OPTIMIZED
+ * Final version with minimal scroll on mobile
  * ================================================================ */
 
 class ContactSection {
     constructor() {
         this.isInitialized = false;
         this.formSubmitted = false;
-        this.observers = [];
-        this.validationRules = this.initializeValidationRules();
+        this.currentScrollPosition = 0;
         
-        // Updated Formspree Configuration
+        // Formspree Configuration
         this.formspreeEndpoint = 'https://formspree.io/f/mpwydnrd';
         
         // Bind methods
         this.init = this.init.bind(this);
-        this.handleResize = this.handleResize.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
         
         // Initialize when DOM is ready
         if (document.readyState === 'loading') {
@@ -25,716 +25,189 @@ class ContactSection {
         }
     }
 
+    // ================================================================
+    // INITIALIZATION
+    // ================================================================
     init() {
         if (this.isInitialized) return;
         
-        console.log('📧 Initializing Contact Section with Fixed Formspree...');
+        console.log('📧 Initializing Contact Section...');
         
         try {
             // Core initializations
-            this.initializeContactForm();
-            this.initializeContactInfo();
-            this.setupScrollAnimations();
-            
-            // Event listeners
-            this.setupEventListeners();
+            this.initializeForm();
+            this.setupMobileScrollFix();
             
             this.isInitialized = true;
             console.log('✅ Contact Section initialized successfully!');
-            
         } catch (error) {
             console.error('❌ Contact Section initialization failed:', error);
         }
     }
 
     // ================================================================
-    // VALIDATION RULES
+    // FORM INITIALIZATION
     // ================================================================
-    
-    initializeValidationRules() {
-        return {
-            name: {
-                required: true,
-                minLength: 2,
-                maxLength: 50,
-                pattern: /^[a-zA-Z\s'-]{2,50}$/,
-                errorMessages: {
-                    required: 'Name is required',
-                    minLength: 'Name must be at least 2 characters',
-                    maxLength: 'Name must not exceed 50 characters',
-                    pattern: 'Please enter a valid name'
-                }
-            },
-            email: {
-                required: true,
-                pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                errorMessages: {
-                    required: 'Email is required',
-                    pattern: 'Please enter a valid email address'
-                }
-            },
-            message: {
-                required: true,
-                minLength: 10,
-                maxLength: 1000,
-                errorMessages: {
-                    required: 'Message is required',
-                    minLength: 'Message must be at least 10 characters',
-                    maxLength: 'Message must not exceed 1000 characters'
-                }
-            }
-        };
-    }
+    initializeForm() {
+        const form = document.getElementById('contact-form');
+        if (!form) {
+            console.error('Contact form not found!');
+            return;
+        }
 
-    // ================================================================
-    // CONTACT FORM INITIALIZATION - FIXED
-    // ================================================================
-    
-    initializeContactForm() {
-        const contactForm = document.getElementById('contact-form');
-        if (!contactForm) return;
+        // Handle form submission
+        form.addEventListener('submit', this.handleFormSubmit);
         
-        console.log('📝 Initializing contact form...');
-        
-        // Ensure form has correct action
-        contactForm.setAttribute('action', this.formspreeEndpoint);
-        contactForm.setAttribute('method', 'POST');
-        
-        // Setup form validation
-        this.setupFormValidation(contactForm);
-        
-        // Setup form submission  
-        this.setupFormSubmission(contactForm);
-        
-        // Setup real-time validation
-        this.setupRealTimeValidation(contactForm);
-        
-        // Fix input spacing issues
-        this.fixInputSpacing(contactForm);
-        
-        console.log('✅ Contact form initialized');
-    }
-    
-    // NEW: Fix input spacing issues
-    fixInputSpacing(form) {
+        // Style inputs for mobile (prevent zoom)
         const inputs = form.querySelectorAll('input, textarea');
-        
         inputs.forEach(input => {
-            // Ensure proper text input handling
-            input.style.fontFamily = 'inherit';
-            input.style.fontSize = 'var(--font-size-base)';
-            input.style.lineHeight = '1.5';
-            input.style.whiteSpace = 'normal';
-            input.style.wordSpacing = 'normal';
-            input.style.letterSpacing = 'normal';
-            
-            // Fix focus behavior
-            input.addEventListener('focus', () => {
-                input.style.outline = 'none';
-                input.style.userSelect = 'auto';
-            });
-            
-            // Ensure textarea allows line breaks
-            if (input.tagName === 'TEXTAREA') {
-                input.style.resize = 'vertical';
-                input.style.overflowWrap = 'break-word';
-                input.style.whiteSpace = 'pre-wrap';
-            }
+            input.style.fontSize = '16px'; // Prevent iOS zoom
         });
-    }
-    
-    setupFormValidation(form) {
-        const inputs = form.querySelectorAll('input[name], textarea[name]');
         
-        inputs.forEach(input => {
-            const fieldName = input.name;
-            const rules = this.validationRules[fieldName];
-            
-            if (rules) {
-                // Add validation attributes
-                if (rules.required) input.setAttribute('required', '');
-                if (rules.minLength) input.setAttribute('minlength', rules.minLength);
-                if (rules.maxLength) input.setAttribute('maxlength', rules.maxLength);
-                
-                // Add error display element
-                this.createErrorDisplay(input);
-            }
-        });
-    }
-    
-    createErrorDisplay(input) {
-        const existingError = input.parentNode.querySelector('.field-error');
-        if (existingError) return;
-        
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'field-error';
-        errorDiv.style.cssText = `
-            color: #ff4757;
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-            opacity: 0;
-            transform: translateY(-5px);
-            transition: all 0.3s ease;
-            min-height: 20px;
-        `;
-        
-        input.parentNode.appendChild(errorDiv);
-    }
-    
-    setupRealTimeValidation(form) {
-        const inputs = form.querySelectorAll('input[name], textarea[name]');
-        
-        inputs.forEach(input => {
-            input.addEventListener('blur', () => {
-                this.validateField(input);
-            });
-            
-            input.addEventListener('focus', () => {
-                this.clearFieldError(input);
-                input.classList.remove('error');
-                input.classList.add('focused');
-            });
-            
-            input.addEventListener('blur', () => {
-                input.classList.remove('focused');
-            });
-            
-            // Character counter for message
-            if (input.name === 'message') {
-                input.addEventListener('input', () => {
-                    this.updateCharacterCounter(input);
-                });
-            }
-        });
-    }
-    
-    setupFormSubmission(form) {
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            if (this.formSubmitted) {
-                this.showToast('⏳ Please wait, form is being submitted...', 'warning');
-                return;
-            }
-            
-            // Validate entire form
-            const isValid = this.validateForm(form);
-            
-            if (isValid) {
-                await this.submitFormToFormspree(form);
-            } else {
-                this.showToast('❌ Please fix the errors above', 'error');
-                
-                // Focus first invalid field
-                const firstError = form.querySelector('.error');
-                if (firstError) {
-                    firstError.focus();
-                    firstError.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'center' 
-                    });
-                }
-            }
-        });
+        console.log('📝 Contact form initialized');
     }
 
     // ================================================================
-    // FORMSPREE INTEGRATION - FIXED
+    // MOBILE SCROLL FIX - THE KEY SOLUTION
     // ================================================================
-    
-    async submitFormToFormspree(form) {
-        this.formSubmitted = true;
+    setupMobileScrollFix() {
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         
+        if (!isMobile) return; // Desktop doesn't need this
+        
+        const inputs = document.querySelectorAll('.contact-form input, .contact-form textarea');
+        
+        inputs.forEach(input => {
+            // CRITICAL: Before focus, save current scroll position
+            input.addEventListener('focus', () => {
+                // Store scroll position just before keyboard opens
+                this.currentScrollPosition = window.pageYOffset;
+                
+                // Small delay to let browser do its thing, then adjust
+                setTimeout(() => {
+                    // If browser scrolled too far, bring it back a bit
+                    const newScrollPosition = window.pageYOffset;
+                    
+                    // If it scrolled more than 300px, it's overshooting
+                    if (newScrollPosition - this.currentScrollPosition > 300) {
+                        // Scroll back up by 200px to prevent going to contact info
+                        window.scrollTo({
+                            top: newScrollPosition - 200,
+                            behavior: 'auto' // Instant, no smooth scroll
+                        });
+                    }
+                }, 300); // Wait for keyboard animation to complete
+            }, { passive: true });
+            
+            // On blur, optionally restore position (when switching fields)
+            input.addEventListener('blur', () => {
+                // Small delay to check if another input is being focused
+                setTimeout(() => {
+                    const activeElement = document.activeElement;
+                    const isAnotherInputFocused = 
+                        activeElement && 
+                        (activeElement.tagName === 'INPUT' || 
+                         activeElement.tagName === 'TEXTAREA');
+                    
+                    // If not focusing another input, we can restore position
+                    if (!isAnotherInputFocused) {
+                        // Optionally scroll back to original position
+                        // Commented out to allow natural behavior
+                        // window.scrollTo(0, this.currentScrollPosition);
+                    }
+                }, 100);
+            }, { passive: true });
+        });
+        
+        console.log('📱 Mobile scroll fix applied');
+    }
+
+    // ================================================================
+    // FORM SUBMISSION HANDLER
+    // ================================================================
+    async handleFormSubmit(e) {
+        e.preventDefault();
+        
+        if (this.formSubmitted) return;
+        
+        const form = e.target;
         const submitBtn = form.querySelector('.submit-btn');
-        const originalBtnHTML = submitBtn.innerHTML;
+        const statusDiv = document.getElementById('form-status');
+        
+        // Get form data
+        const formData = new FormData(form);
+        
+        // Validate fields
+        const name = formData.get('name');
+        const email = formData.get('email');
+        const message = formData.get('message');
+        
+        if (!name || !email || !message) {
+            this.showStatus('Please fill in all fields', 'error');
+            return;
+        }
+        
+        // Disable submit button
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="btn-text">Sending...</span><i class="fas fa-spinner fa-spin"></i>';
         
         try {
-            // Show loading state
-            this.showSubmitLoading(submitBtn);
-            
-            // Collect form data - FIXED for Formspree
-            const formData = new FormData(form);
-            
-            console.log('📤 Submitting to Formspree...', {
-                endpoint: this.formspreeEndpoint,
-                data: Object.fromEntries(formData)
-            });
-            
-            // Submit to Formspree using FormData (not JSON)
+            // Submit to Formspree
             const response = await fetch(this.formspreeEndpoint, {
                 method: 'POST',
-                body: formData, // Use FormData directly
+                body: formData,
                 headers: {
                     'Accept': 'application/json'
                 }
             });
             
-            console.log('📥 Formspree response:', response.status, response.statusText);
-            
             if (response.ok) {
-                this.handleSubmitSuccess(form, submitBtn, originalBtnHTML);
-            } else {
-                let errorMessage = 'Failed to send message';
+                // Success
+                this.showStatus('Message sent successfully! I\'ll get back to you soon.', 'success');
+                form.reset();
+                this.formSubmitted = true;
                 
-                try {
-                    const errorData = await response.json();
-                    if (errorData.errors) {
-                        errorMessage = errorData.errors.map(e => e.message).join(', ');
-                    }
-                } catch (parseError) {
-                    console.error('Error parsing response:', parseError);
-                }
+                // Reset submit button
+                submitBtn.innerHTML = '<span class="btn-text">Message Sent!</span><i class="fas fa-check"></i>';
                 
-                this.handleSubmitError(errorMessage, submitBtn, originalBtnHTML);
-            }
-            
-        } catch (error) {
-            console.error('❌ Formspree submission error:', error);
-            this.handleSubmitError('Network error. Please check your connection and try again.', submitBtn, originalBtnHTML);
-        }
-        
-        this.formSubmitted = false;
-    }
-    
-    showSubmitLoading(button) {
-        button.disabled = true;
-        button.innerHTML = `
-            <span class="btn-text">
-                <i class="fas fa-spinner fa-spin"></i>
-                Sending...
-            </span>
-        `;
-        button.style.opacity = '0.8';
-    }
-    
-    handleSubmitSuccess(form, button, originalHTML) {
-        // Show success state
-        button.innerHTML = `
-            <span class="btn-text">
-                <i class="fas fa-check"></i>
-                Message Sent!
-            </span>
-        `;
-        button.style.background = '#2ed573';
-        button.style.borderColor = '#2ed573';
-        
-        // Show success message
-        this.showToast('🎉 Thank you! Your message has been sent successfully. I\'ll get back to you within 24 hours.', 'success');
-        
-        // Reset form after delay
-        setTimeout(() => {
-            form.reset();
-            button.innerHTML = originalHTML;
-            button.style.background = '';
-            button.style.borderColor = '';
-            button.style.opacity = '';
-            button.disabled = false;
-            
-            // Clear all validation states
-            const inputs = form.querySelectorAll('input, textarea');
-            inputs.forEach(input => {
-                input.classList.remove('valid', 'error', 'focused');
-                this.clearFieldError(input);
-            });
-            
-            // Clear character counter
-            const counter = form.querySelector('.char-counter');
-            if (counter) counter.remove();
-            
-        }, 4000);
-        
-        // Track successful submission
-        this.trackEvent('contact_form_submitted', {
-            success: true,
-            provider: 'formspree',
-            timestamp: new Date().toISOString()
-        });
-    }
-    
-    handleSubmitError(error, button, originalHTML) {
-        // Show error state
-        button.innerHTML = `
-            <span class="btn-text">
-                <i class="fas fa-exclamation-triangle"></i>
-                Try Again
-            </span>
-        `;
-        button.style.background = '#ff4757';
-        button.style.borderColor = '#ff4757';
-        
-        // Show error message
-        this.showToast(`❌ ${error}`, 'error');
-        
-        // Reset button after delay
-        setTimeout(() => {
-            button.innerHTML = originalHTML;
-            button.style.background = '';
-            button.style.borderColor = '';
-            button.style.opacity = '';
-            button.disabled = false;
-        }, 4000);
-        
-        // Track failed submission
-        this.trackEvent('contact_form_error', {
-            error: error,
-            provider: 'formspree',
-            timestamp: new Date().toISOString()
-        });
-    }
-
-    // ================================================================
-    // FORM VALIDATION
-    // ================================================================
-    
-    validateForm(form) {
-        const inputs = form.querySelectorAll('input[name], textarea[name]');
-        let isValid = true;
-        
-        inputs.forEach(input => {
-            if (!this.validateField(input)) {
-                isValid = false;
-            }
-        });
-        
-        return isValid;
-    }
-    
-    validateField(input) {
-        const fieldName = input.name;
-        const rules = this.validationRules[fieldName];
-        const value = input.value.trim();
-        
-        if (!rules) return true;
-        
-        // Clear previous errors
-        this.clearFieldError(input);
-        
-        // Required validation
-        if (rules.required && !value) {
-            this.showFieldError(input, rules.errorMessages.required);
-            return false;
-        }
-        
-        // Skip other validations if field is empty and not required
-        if (!value && !rules.required) return true;
-        
-        // Length validation
-        if (rules.minLength && value.length < rules.minLength) {
-            this.showFieldError(input, rules.errorMessages.minLength);
-            return false;
-        }
-        
-        if (rules.maxLength && value.length > rules.maxLength) {
-            this.showFieldError(input, rules.errorMessages.maxLength);
-            return false;
-        }
-        
-        // Pattern validation
-        if (rules.pattern && !rules.pattern.test(value)) {
-            this.showFieldError(input, rules.errorMessages.pattern);
-            return false;
-        }
-        
-        // Field is valid
-        input.classList.add('valid');
-        input.classList.remove('error');
-        
-        return true;
-    }
-    
-    showFieldError(input, message) {
-        const errorDiv = input.parentNode.querySelector('.field-error');
-        if (errorDiv) {
-            errorDiv.textContent = message;
-            errorDiv.style.opacity = '1';
-            errorDiv.style.transform = 'translateY(0)';
-        }
-        
-        input.classList.add('error');
-        input.classList.remove('valid');
-    }
-    
-    clearFieldError(input) {
-        const errorDiv = input.parentNode.querySelector('.field-error');
-        if (errorDiv) {
-            errorDiv.style.opacity = '0';
-            errorDiv.style.transform = 'translateY(-5px)';
-            setTimeout(() => {
-                errorDiv.textContent = '';
-            }, 300);
-        }
-    }
-    
-    updateCharacterCounter(textarea) {
-        const maxLength = this.validationRules.message.maxLength;
-        const currentLength = textarea.value.length;
-        
-        let counter = textarea.parentNode.querySelector('.char-counter');
-        if (!counter) {
-            counter = document.createElement('div');
-            counter.className = 'char-counter';
-            counter.style.cssText = `
-                font-size: 0.8rem;
-                color: var(--text-secondary);
-                text-align: right;
-                margin-top: 0.5rem;
-                transition: color 0.3s ease;
-            `;
-            textarea.parentNode.appendChild(counter);
-        }
-        
-        counter.textContent = `${currentLength}/${maxLength}`;
-        
-        // Color coding
-        if (currentLength > maxLength * 0.9) {
-            counter.style.color = '#ff4757';
-        } else if (currentLength > maxLength * 0.7) {
-            counter.style.color = '#ffa502';
-        } else {
-            counter.style.color = 'var(--text-secondary)';
-        }
-    }
-
-    // ================================================================
-    // CONTACT INFO ANIMATIONS
-    // ================================================================
-    
-    initializeContactInfo() {
-        const contactMethods = document.querySelectorAll('.contact-method');
-        
-        if (contactMethods.length === 0) return;
-        
-        console.log('ℹ️ Initializing contact info animations...');
-        
-        const infoObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const index = Array.from(contactMethods).indexOf(entry.target);
-                    setTimeout(() => {
-                        this.animateContactMethod(entry.target);
-                    }, index * 200);
-                    
-                    infoObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.3 });
-        
-        contactMethods.forEach(method => {
-            method.style.opacity = '0';
-            method.style.transform = 'translateX(-30px)';
-            infoObserver.observe(method);
-        });
-        
-        this.observers.push(infoObserver);
-        
-        console.log(`✅ Contact info initialized: ${contactMethods.length} methods`);
-    }
-    
-    animateContactMethod(method) {
-        method.style.transition = 'all 0.8s ease';
-        method.style.opacity = '1';
-        method.style.transform = 'translateX(0)';
-    }
-
-    // ================================================================
-    // SCROLL ANIMATIONS
-    // ================================================================
-    
-    setupScrollAnimations() {
-        // Animate section header
-        const sectionHeader = document.querySelector('#contact .section-header');
-        if (sectionHeader) {
-            const headerObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        this.animateSectionHeader();
-                        headerObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.3 });
-            
-            headerObserver.observe(sectionHeader);
-            this.observers.push(headerObserver);
-        }
-        
-        console.log('✅ Contact scroll animations setup complete');
-    }
-    
-    animateSectionHeader() {
-        const badge = document.querySelector('#contact .section-badge');
-        const title = document.querySelector('#contact .section-title');
-        const line = document.querySelector('#contact .section-line');
-        const subtitle = document.querySelector('#contact .section-subtitle');
-        
-        [badge, title, line, subtitle].forEach((element, index) => {
-            if (element) {
-                element.style.opacity = '0';
-                element.style.transform = 'translateY(20px)';
-                
+                // Allow resubmission after 5 seconds
                 setTimeout(() => {
-                    element.style.transition = 'all 0.6s ease';
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateY(0)';
-                }, index * 200);
+                    this.formSubmitted = false;
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<span class="btn-text">Send Message</span><i class="fas fa-paper-plane"></i>';
+                }, 5000);
+            } else {
+                throw new Error('Form submission failed');
             }
-        });
+        } catch (error) {
+            console.error('Form submission error:', error);
+            this.showStatus('Oops! Something went wrong. Please try again.', 'error');
+            
+            // Re-enable submit button
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span class="btn-text">Send Message</span><i class="fas fa-paper-plane"></i>';
+        }
     }
 
     // ================================================================
-    // UTILITY FUNCTIONS
+    // STATUS MESSAGE DISPLAY
     // ================================================================
-    
-    showToast(message, type = 'info') {
-        const toast = document.createElement('div');
-        toast.className = `toast toast-${type}`;
-        toast.textContent = message;
+    showStatus(message, type) {
+        const statusDiv = document.getElementById('form-status');
+        if (!statusDiv) return;
         
-        const colors = {
-            success: '#2ed573',
-            error: '#ff4757',
-            info: '#3742fa',
-            warning: '#ffa502'
-        };
+        statusDiv.textContent = message;
+        statusDiv.className = `form-status ${type}`;
+        statusDiv.style.display = 'block';
         
-        toast.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: ${colors[type] || colors.info};
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            z-index: 10001;
-            font-weight: 500;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            animation: slideInRight 0.3s ease;
-            max-width: 400px;
-            word-wrap: break-word;
-        `;
-        
-        document.body.appendChild(toast);
-        
+        // Auto-hide after 5 seconds
         setTimeout(() => {
-            toast.style.animation = 'slideOutRight 0.3s ease';
-            setTimeout(() => {
-                toast.remove();
-            }, 300);
+            statusDiv.style.display = 'none';
         }, 5000);
     }
-    
-    trackEvent(eventName, eventData = {}) {
-        console.log(`📊 Contact Event tracked: ${eventName}`, eventData);
-    }
-
-    // ================================================================
-    // EVENT LISTENERS
-    // ================================================================
-    
-    setupEventListeners() {
-        window.addEventListener('resize', this.handleResize, { passive: true });
-        console.log('✅ Contact event listeners setup complete');
-    }
-    
-    handleResize() {
-        clearTimeout(this.resizeTimeout);
-        this.resizeTimeout = setTimeout(() => {
-            console.log('📱 Contact section responsive adjustment');
-        }, 250);
-    }
-
-    // ================================================================
-    // PUBLIC METHODS
-    // ================================================================
-    
-    resetForm() {
-        const form = document.getElementById('contact-form');
-        if (form) {
-            form.reset();
-            
-            const inputs = form.querySelectorAll('input, textarea');
-            inputs.forEach(input => {
-                input.classList.remove('valid', 'error', 'focused');
-                this.clearFieldError(input);
-            });
-            
-            console.log('📝 Contact form reset');
-        }
-    }
-    
-    destroy() {
-        console.log('🗑️ Destroying contact section...');
-        
-        window.removeEventListener('resize', this.handleResize);
-        
-        this.observers.forEach(observer => {
-            observer.disconnect();
-        });
-        
-        clearTimeout(this.resizeTimeout);
-        
-        this.isInitialized = false;
-    }
 }
 
 // ================================================================
-// CSS ANIMATIONS
+// INITIALIZE CONTACT SECTION
 // ================================================================
-
-const contactAnimationStyles = `
-<style>
-@keyframes slideInRight {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-}
-
-@keyframes slideOutRight {
-    from { transform: translateX(0); opacity: 1; }
-    to { transform: translateX(100%); opacity: 0; }
-}
-
-.form-group input.focused,
-.form-group textarea.focused {
-    border-color: var(--primary-color) !important;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
-}
-
-.form-group input.valid,
-.form-group textarea.valid {
-    border-color: #2ed573 !important;
-    box-shadow: 0 0 0 2px rgba(46, 213, 115, 0.2) !important;
-}
-
-.form-group input.error,
-.form-group textarea.error {
-    border-color: #ff4757 !important;
-    box-shadow: 0 0 0 2px rgba(255, 71, 87, 0.2) !important;
-    animation: shake 0.5s ease;
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-3px); }
-    75% { transform: translateX(3px); }
-}
-</style>
-`;
-
-// Inject styles
-if (!document.querySelector('#contact-animations')) {
-    const styleSheet = document.createElement('div');
-    styleSheet.id = 'contact-animations';
-    styleSheet.innerHTML = contactAnimationStyles;
-    document.head.appendChild(styleSheet);
-}
-
-// ================================================================
-// INITIALIZATION
-// ================================================================
-
-// Initialize Contact Section
-window.contactSection = new ContactSection();
-
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = ContactSection;
-}
+const contactSection = new ContactSection();
