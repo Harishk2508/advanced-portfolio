@@ -383,55 +383,93 @@ async syncVisitorCount(counterElement) {
     }
 }
 
-trackVisitorAnalytics(sessionId, isReturning) {
-    const analytics = {
-        sessionId: sessionId,
-        isReturning: isReturning,
-        timestamp: Date.now(),
-        date: new Date().toISOString(),
-        userAgent: navigator.userAgent,
-        referrer: document.referrer,
-        url: window.location.href,
-        screen: {
-            width: screen.width,
-            height: screen.height,
-            colorDepth: screen.colorDepth
-        },
-        viewport: {
-            width: window.innerWidth,
-            height: window.innerHeight
-        },
-        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        language: navigator.language,
-        platform: navigator.platform,
-        // Enhanced tracking
-        deviceType: this.getDeviceType(),
-        browserInfo: this.getBrowserInfo(),
-        connectionType: this.getConnectionType(),
-        fingerprint: this.getBrowserFingerprint()
-    };
-    
-    // Store analytics data
-    const existingAnalytics = JSON.parse(localStorage.getItem('portfolio-analytics') || '[]');
-    existingAnalytics.push(analytics);
-    
-    // Keep only last 100 entries to prevent storage bloat
-    if (existingAnalytics.length > 100) {
-        existingAnalytics.splice(0, existingAnalytics.length - 100);
+async trackVisitorAnalytics(sessionId, isReturning) {
+    try {
+        const analytics = {
+            sessionId: sessionId,
+            isReturning: isReturning,
+            timestamp: Date.now(),
+            date: new Date().toISOString(),
+            userAgent: navigator.userAgent,
+            referrer: document.referrer,
+            url: window.location.href,
+            screen: {
+                width: screen.width,
+                height: screen.height,
+                colorDepth: screen.colorDepth
+            },
+            viewport: {
+                width: window.innerWidth,
+                height: window.innerHeight
+            },
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            language: navigator.language,
+            platform: navigator.platform,
+            // Enhanced tracking
+            deviceType: this.getDeviceType(),
+            browserInfo: this.getBrowserInfo(),
+            connectionType: this.getConnectionType(),
+            fingerprint: this.getBrowserFingerprint()
+        };
+        
+        console.log('📊 Visitor tracked:', {
+            type: isReturning ? 'Returning' : 'New',
+            referrer: this.getReferrerType(document.referrer),
+            device: analytics.deviceType,
+            browser: analytics.browserInfo,
+            connection: analytics.connectionType,
+            timestamp: new Date().toLocaleString()
+        });
+
+        // ✅ STORE IN FIREBASE (not just localStorage)
+        const db = firebase.database();
+        const visitsRef = db.ref('analytics/visits');
+        
+        // Push new visit to Firebase
+        await visitsRef.push(analytics);
+        console.log('✅ Visit data saved to Firebase');
+
+        // Also keep local copy for offline access
+        const existingAnalytics = JSON.parse(localStorage.getItem('portfolio-analytics') || '[]');
+        existingAnalytics.push(analytics);
+        
+        // Keep only last 100 entries to prevent storage bloat
+        if (existingAnalytics.length > 100) {
+            existingAnalytics.splice(0, existingAnalytics.length - 100);
+        }
+        
+        localStorage.setItem('portfolio-analytics', JSON.stringify(existingAnalytics));
+        
+        return analytics;
+
+    } catch (error) {
+        console.error('❌ Failed to track visitor in Firebase:', error);
+        
+        // Fallback to localStorage only
+        const analytics = {
+            sessionId: sessionId,
+            isReturning: isReturning,
+            timestamp: Date.now(),
+            date: new Date().toISOString(),
+            deviceType: this.getDeviceType(),
+            browserInfo: this.getBrowserInfo(),
+            connectionType: this.getConnectionType()
+        };
+        
+        const existingAnalytics = JSON.parse(localStorage.getItem('portfolio-analytics') || '[]');
+        existingAnalytics.push(analytics);
+        
+        if (existingAnalytics.length > 100) {
+            existingAnalytics.splice(0, existingAnalytics.length - 100);
+        }
+        
+        localStorage.setItem('portfolio-analytics', JSON.stringify(existingAnalytics));
+        
+        console.log('⚠️ Using localStorage fallback for analytics');
+        return analytics;
     }
-    
-    localStorage.setItem('portfolio-analytics', JSON.stringify(existingAnalytics));
-    
-    // Log visitor info
-    console.log('📊 Visitor tracked:', {
-        type: isReturning ? 'Returning' : 'New',
-        referrer: this.getReferrerType(document.referrer),
-        device: analytics.deviceType,
-        browser: analytics.browserInfo,
-        connection: analytics.connectionType,
-        timestamp: new Date().toLocaleString()
-    });
 }
+
 
 // Enhanced device detection
 getDeviceType() {
@@ -661,19 +699,49 @@ async resetVisitorCount(newCount = 0, confirm = true) {
     }
 }
 
-// Export analytics data
-exportAnalytics() {
-    const data = this.getVisitorAnalytics();
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `portfolio-analytics-${new Date().toISOString().split('T')[0]}.json`;
-    a.click();
-    
-    URL.revokeObjectURL(url);
-    console.log('📁 Analytics data exported');
+/**
+ * Export analytics data to JSON file
+ */
+async exportAnalytics() {
+    try {
+        console.log('📁 Exporting analytics from Firebase...');
+        
+        // Get all data from Firebase
+        const db = firebase.database();
+        const visitsSnapshot = await db.ref('analytics/visits').once('value');
+        const countSnapshot = await db.ref('visitorCount').once('value');
+        
+        const allVisits = [];
+        visitsSnapshot.forEach(childSnapshot => {
+            allVisits.push(childSnapshot.val());
+        });
+        
+        const exportData = {
+            totalVisitors: countSnapshot.val() || 0,
+            totalRecords: allVisits.length,
+            exportDate: new Date().toISOString(),
+            analytics: this.calculateAnalytics(allVisits),
+            visits: allVisits
+        };
+        
+        // Create and download JSON file
+        const dataStr = JSON.stringify(exportData, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `portfolio-analytics-${Date.now()}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        
+        console.log('✅ Analytics exported successfully');
+        alert(`✅ Analytics exported successfully!\n\nTotal Visitors: ${exportData.totalVisitors}\nTotal Records: ${exportData.totalRecords}`);
+    } catch (error) {
+        console.error('❌ Export failed:', error);
+        alert('❌ Export failed. Check console for details.');
+    }
 }
 
 // ================================================================
@@ -749,52 +817,112 @@ showAdminPanel() {
 // UPDATED: Admin data loading with fixed calculations
 async loadAdminData() {
     try {
-        // Get current count from Firebase (not localStorage)
+        console.log('📊 Loading admin data from Firebase...');
+        
+        // Get Firebase count
         const db = firebase.database();
-        const snapshot = await db.ref('visitorCount').once('value');
-        const currentCount = snapshot.val() || 0;
+        const countSnapshot = await db.ref('visitorCount').once('value');
+        const firebaseCount = countSnapshot.val() || 0;
         
-        const analytics = this.getVisitorAnalytics();
+        // Get all visits from Firebase
+        const visitsSnapshot = await db.ref('analytics/visits').once('value');
+        const allVisits = [];
         
-        console.log('📊 Analytics Data:', analytics); // Debug log
+        visitsSnapshot.forEach(childSnapshot => {
+            allVisits.push(childSnapshot.val());
+        });
+        
+        console.log(`📊 Loaded ${allVisits.length} visits from Firebase`);
+        
+        // Calculate analytics from Firebase data
+        const analytics = this.calculateAnalytics(allVisits);
+        
+        // Update main stats
+        document.getElementById('admin-total-count').textContent = firebaseCount;
+        document.getElementById('admin-unique-count').textContent = analytics.uniqueVisitors;
 
-        // Update main stats with correct calculations
-        document.getElementById('admin-total-count').textContent = analytics.summary.totalVisits || 0;
-        document.getElementById('admin-unique-count').textContent = analytics.summary.uniqueVisitors || 0;
-
-        // Today's visits calculation
+        // Today's visits
         const today = new Date().toDateString();
-        const todayVisits = analytics.raw.filter(visit => {
+        const todayVisits = allVisits.filter(visit => {
             const visitDate = new Date(visit.timestamp).toDateString();
             return visitDate === today;
         }).length;
         document.getElementById('admin-today-count').textContent = todayVisits;
 
-        // Return rate calculation
-        const returnVisits = analytics.raw.filter(visit => visit.isReturning).length;
-        const returnRate = analytics.summary.totalVisits > 0 
-            ? (returnVisits / analytics.summary.totalVisits * 100).toFixed(1) 
+        // Return rate
+        const returnVisits = allVisits.filter(visit => visit.isReturning).length;
+        const returnRate = allVisits.length > 0 
+            ? (returnVisits / allVisits.length * 100).toFixed(1) 
             : '0';
         document.getElementById('admin-return-rate').textContent = returnRate + '%';
 
-        // ✅ Display FIREBASE count as well
+        // Firebase count display
         const firebaseCountEl = document.getElementById('admin-firebase-count');
         if (firebaseCountEl) {
-            firebaseCountEl.textContent = currentCount;
+            firebaseCountEl.textContent = firebaseCount;
         }
 
-        // Load enhanced charts
-        this.loadEnhancedDeviceChart(analytics.summary.deviceBreakdown);
-        this.loadEnhancedReferrerChart(analytics.summary.referrerBreakdown);
-        this.loadEnhancedBrowserChart(analytics.summary.browserBreakdown);
-        this.loadEnhancedConnectionChart(analytics.summary.connectionBreakdown);
-        this.loadEnhancedRecentVisitors(analytics.raw.slice(-10));
+        // Load charts with Firebase data
+        this.loadEnhancedDeviceChart(analytics.deviceBreakdown);
+        this.loadEnhancedReferrerChart(analytics.referrerBreakdown);
+        this.loadEnhancedBrowserChart(analytics.browserBreakdown);
+        this.loadEnhancedConnectionChart(analytics.connectionBreakdown);
+        this.loadEnhancedRecentVisitors(allVisits.slice(-10).reverse());
 
-        console.log('✅ Admin dashboard data loaded successfully');
+        console.log('✅ Admin dashboard loaded successfully from Firebase');
 
     } catch (error) {
-        console.error('❌ Failed to load admin data:', error);
-        alert('Failed to load admin data. Check console for details.');
+        console.error('❌ Failed to load admin data from Firebase:', error);
+        alert('Failed to load analytics. Check Firebase connection.');
+    }
+}
+
+calculateAnalytics(visits) {
+    const uniqueSessions = new Set();
+    const deviceCount = {};
+    const browserCount = {};
+    const referrerCount = {};
+    const connectionCount = {};
+    
+    visits.forEach(visit => {
+        // Count unique sessions
+        if (visit.sessionId) {
+            uniqueSessions.add(visit.sessionId);
+        }
+        
+        // Count devices
+        const device = visit.device || 'Unknown';
+        deviceCount[device] = (deviceCount[device] || 0) + 1;
+        
+        // Count browsers
+        const browser = visit.browser || 'Unknown';
+        browserCount[browser] = (browserCount[browser] || 0) + 1;
+        
+        // Count referrers
+        const referrer = visit.referrer || 'Direct';
+        referrerCount[referrer] = (referrerCount[referrer] || 0) + 1;
+        
+        // Count connections
+        const connection = visit.connection || 'Unknown';
+        connectionCount[connection] = (connectionCount[connection] || 0) + 1;
+    });
+    
+    return {
+        uniqueVisitors: uniqueSessions.size,
+        deviceBreakdown: deviceCount,
+        browserBreakdown: browserCount,
+        referrerBreakdown: referrerCount,
+        connectionBreakdown: connectionCount
+    };
+}
+async refreshAdminData() {
+    console.log('🔄 Refreshing admin data from Firebase...');
+    try {
+        await this.loadAdminData();
+        alert('✅ Dashboard refreshed successfully!');
+    } catch (error) {
+        console.error('❌ Refresh failed:', error);
+        alert('❌ Failed to refresh data. Check console.');
     }
 }
 
@@ -1647,37 +1775,37 @@ if (!document.querySelector('#hero-animations')) {
 // ================================================================
 // INITIALIZATION
 // ================================================================
-// ================================================================
-// GLOBAL FUNCTIONS FOR ADMIN PANEL BUTTONS
-// ================================================================
-
 // Global functions for admin panel buttons
-window.refreshAdminData = () => {
-    heroSection.loadAdminData();
-    console.log('🔄 Admin data refreshed');
-};
-
-window.exportAnalytics = () => {
-    heroSection.exportAnalytics();
-};
-
-window.resetCounter = () => {
-    if (heroSection.resetVisitorCount(0)) {
-        heroSection.loadAdminData();
+window.refreshAdminData = function() {
+    if (window.heroSection && window.heroSection.refreshAdminData) {
+        window.heroSection.refreshAdminData();
     }
 };
 
-window.closeAdminPanel = () => {
+window.exportAnalytics = function() {
+    if (window.heroSection && window.heroSection.exportAnalytics) {
+        window.heroSection.exportAnalytics();
+    }
+};
+
+window.resetCounter = function() {
+    if (window.heroSection && window.heroSection.resetVisitorCount) {
+        window.heroSection.resetVisitorCount(0, true);
+    }
+};
+
+window.closeAdminPanel = function() {
     const panel = document.getElementById('admin-analytics-panel');
     if (panel) {
         panel.style.display = 'none';
-        document.body.style.overflow = 'auto';
-        console.log('📊 Admin panel closed');
     }
 };
 
+// Store heroSection instance globally
+const heroSection = new HeroSection();
+
 // Initialize Hero Section
-window.heroSection = new HeroSection();
+window.heroSection = heroSection;
 
 // Export for use in other modules
 if (typeof module !== 'undefined' && module.exports) {
