@@ -1932,6 +1932,17 @@
     <button class="back-to-top" id="backToTop" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
     </button>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script>
+    // Initialize Firebase
+    const firebaseConfig = {
+    databaseURL: "https://harishk-portfolio-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    };
+    firebase.initializeApp(firebaseConfig);
+    console.log('🔥 Firebase initialized!');
+    </script>
 
     <!-- JavaScript Modules -->
     <script src="assets/js/navigations.js"></script>
@@ -1943,5 +1954,6 @@
     <script src="assets/js/projects.js"></script>
     <script src="assets/js/contact.js"></script>
     <script src="assets/js/main.js"></script>
+
 </body>
 </html>
