@@ -221,49 +221,38 @@ checkReturningVisitor(sessionId) {
 
 async getRealVisitorCount() {
     try {
-        const response = await fetch('/.netlify/functions/visitor-counter', {
-            method: 'GET'
-        });
-        const data = await response.json();
-        
-        if (data && data.value !== undefined) {
-            console.log(`📊 Count from Netlify: ${data.value}`);
-            localStorage.setItem('portfolio-real-visitors', data.value.toString());
-            return data.value;
-        }
-        
-        throw new Error('Invalid response');
-        
-    } catch (error) {
-        console.warn('⚠️ Using localStorage fallback');
-        const count = parseInt(localStorage.getItem('portfolio-real-visitors')) || 0;
+        const db = firebase.database();
+        const snapshot = await db.ref('visitorCount').once('value');
+        const count = snapshot.val() || 0;
+        console.log(`📊 Count from Firebase: ${count}`);
+        localStorage.setItem('portfolio-real-visitors', count.toString());
         return count;
+    } catch (error) {
+        console.warn('⚠️ Firebase unavailable, using localStorage');
+        return parseInt(localStorage.getItem('portfolio-real-visitors')) || 0;
     }
 }
 
 async incrementVisitorCount(currentCount, sessionId) {
     try {
-        const response = await fetch('/.netlify/functions/visitor-counter', {
-            method: 'POST'
-        });
-        const data = await response.json();
+        const db = firebase.database();
+        const ref = db.ref('visitorCount');
         
-        if (data && data.value !== undefined) {
-            const newCount = data.value;
-            console.log(`📈 Count incremented on Netlify: ${newCount}`);
-            
-            localStorage.setItem('portfolio-real-visitors', newCount.toString());
-            localStorage.setItem('portfolio-last-visitor', sessionId);
-            localStorage.setItem('portfolio-last-visit-time', Date.now().toString());
-            
-            this.broadcastVisitorCount(newCount);
-            return newCount;
-        }
+        // Get current value and increment atomically
+        const snapshot = await ref.once('value');
+        const newCount = (snapshot.val() || 0) + 1;
         
-        throw new Error('Invalid response');
+        await ref.set(newCount);
+        console.log(`📈 Count incremented on Firebase: ${newCount}`);
         
+        localStorage.setItem('portfolio-real-visitors', newCount.toString());
+        localStorage.setItem('portfolio-last-visitor', sessionId);
+        localStorage.setItem('portfolio-last-visit-time', Date.now().toString());
+        
+        this.broadcastVisitorCount(newCount);
+        return newCount;
     } catch (error) {
-        console.warn('⚠️ Using local increment');
+        console.warn('⚠️ Firebase unavailable, using local increment');
         const newCount = currentCount + 1;
         localStorage.setItem('portfolio-real-visitors', newCount.toString());
         localStorage.setItem('portfolio-last-visitor', sessionId);
