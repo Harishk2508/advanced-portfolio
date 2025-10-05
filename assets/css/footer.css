@@ -792,3 +792,16 @@ html {
 .footer-stats .stat-number {
     animation: statCountUp 0.8s ease forwards;
 }
+.footer-copyright {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.footer-copyright p {
+    text-align: center;
+    margin: 0.5rem 0;
+}
