@@ -710,10 +710,12 @@
 }
 
 /* ================================================================
-   RESPONSIVE BREAKPOINTS
+   RESPONSIVE BREAKPOINTS - COMPLETE
    ================================================================ */
 
+/* Tablet (1024px and below) */
 @media (max-width: 1024px) {
+    /* Hero Layout */
     .hero-layout {
         gap: clamp(1.5rem, 6vw, 3rem);
     }
@@ -728,9 +730,21 @@
         height: clamp(35px, 6vw, 50px);
         font-size: clamp(0.7rem, 2.5vw, 1rem);
     }
+    
+    /* ✅ ID Card - Tablet */
+    #hero .id-card-container {
+        right: 30px;
+        top: 100px;
+    }
+    
+    .id-card {
+        width: 240px;
+    }
 }
 
+/* Mobile Landscape (768px and below) */
 @media (max-width: 768px) {
+    /* Hero Content */
     .hero-content {
         min-height: auto;
         padding: clamp(80px, 10vh, 100px) 0 clamp(40px, 6vh, 60px);
@@ -783,9 +797,57 @@
     .hero-bottom {
         gap: clamp(0.75rem, 2vw, 1.5rem);
     }
+    
+    /* ✅ ID Card - Mobile (CRITICAL FIX) */
+    #hero .id-card-container {
+        position: absolute; /* ✅ Changed from fixed! */
+        top: auto;
+        bottom: 120px;
+        right: 15px;
+        left: auto;
+        z-index: 100;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    /* ✅ Hide when scrolling past hero */
+    #hero .id-card-container.hidden {
+        opacity: 0;
+        transform: translateY(20px);
+        pointer-events: none;
+    }
+    
+    .id-card {
+        width: 200px;
+    }
+    
+    .card-lanyard {
+        height: 30px;
+    }
+    
+    .company-logo {
+        font-size: 1.3rem;
+    }
+    
+    .employee-photo {
+        width: 55px;
+        height: 55px;
+    }
+    
+    .stamp {
+        width: 80px;
+        height: 80px;
+        border-width: 4px;
+        right: -55px;
+    }
+    
+    .stamp-text {
+        font-size: 0.7rem;
+    }
 }
 
+/* Mobile Portrait (480px and below) */
 @media (max-width: 480px) {
+    /* Hero Content */
     .hero-content {
         padding: clamp(60px, 8vh, 80px) 0 clamp(30px, 4vh, 40px);
     }
@@ -825,8 +887,47 @@
     .profile-border {
         display: none;
     }
+    
+    /* ✅ ID Card - Small Mobile */
+    #hero .id-card-container {
+        bottom: 100px;
+        right: 10px;
+        transform: scale(0.9);
+    }
+    
+    #hero .id-card-container.hidden {
+        transform: scale(0.9) translateY(20px);
+    }
+    
+    .id-card {
+        width: 180px;
+    }
+    
+    .card-body {
+        padding: 12px;
+    }
+    
+    .employee-photo {
+        width: 50px;
+        height: 50px;
+    }
 }
 
+/* Very Small Screens (360px and below) */
+@media (max-width: 360px) {
+    /* ✅ ID Card - Extra Small */
+    #hero .id-card-container {
+        bottom: 80px;
+        right: 5px;
+        transform: scale(0.8);
+    }
+    
+    #hero .id-card-container.hidden {
+        transform: scale(0.8) translateY(20px);
+    }
+}
+
+/* Ultra Small Screens (320px and below) */
 @media (max-width: 320px) {
     .hero-stats {
         grid-template-columns: 1fr;
@@ -865,4 +966,434 @@
     0% { opacity: 0; transform: translateY(50px) scale(0); }
     50% { opacity: 1; transform: translateY(-50px) scale(1); }
     100% { opacity: 0; transform: translateY(-150px) scale(0); }
+}
+
+
+/* =============================================
+   ID CARD ANIMATION - HERO SECTION ONLY
+   ============================================= */
+
+/* Only show in hero section */
+#hero .id-card-container {
+    position: absolute;
+    top: 120px;
+    right: 50px;
+    z-index: 100;
+    animation: cardSlideIn 1.5s ease-out forwards;
+    animation-delay: 2s;
+    opacity: 0;
+    pointer-events: auto;
+}
+
+/* Hide in all other sections */
+#about .id-card-container,
+#projects .id-card-container,
+#skills .id-card-container,
+#contact .id-card-container {
+    display: none !important;
+}
+
+@keyframes cardSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-100px) rotate(-10deg);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(10px) rotate(3deg);
+    }
+    80% {
+        transform: translateY(-5px) rotate(-2deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+/* Card Lanyard */
+.card-lanyard {
+    width: 2px;
+    height: 50px;
+    background: linear-gradient(180deg, 
+        rgba(255,255,255,0.4) 0%, 
+        rgba(255,255,255,0.15) 100%
+    );
+    margin: 0 auto;
+    border-radius: 2px;
+    animation: lanyardSwing 3s ease-in-out infinite;
+    transform-origin: top center;
+    box-shadow: 0 0 5px rgba(255,255,255,0.2);
+}
+
+@keyframes lanyardSwing {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(4deg);
+    }
+    75% {
+        transform: rotate(-4deg);
+    }
+}
+
+/* ID Card */
+.id-card {
+    width: 260px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-radius: 16px;
+    box-shadow: 
+        0 15px 50px rgba(0,0,0,0.6),
+        0 0 30px rgba(102, 126, 234, 0.4),
+        inset 0 2px 0 rgba(255,255,255,0.15);
+    overflow: hidden;
+    position: relative;
+    animation: cardFloat 4s ease-in-out infinite;
+    transform-origin: top center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(102, 126, 234, 0.4);
+}
+
+.id-card:hover {
+    transform: scale(1.08) rotate(3deg);
+    box-shadow: 
+        0 20px 60px rgba(0,0,0,0.7),
+        0 0 40px rgba(102, 126, 234, 0.6);
+}
+
+@keyframes cardFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-12px) rotate(2deg);
+    }
+}
+
+/* Stamp shake animation */
+@keyframes stampShake {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-2px) rotate(-1deg);
+    }
+    50% {
+        transform: translateY(2px) rotate(1deg);
+    }
+    75% {
+        transform: translateY(-1px) rotate(-0.5deg);
+    }
+}
+
+/* Card Header */
+.card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 12px 15px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(255,255,255,0.15),
+        transparent
+    );
+    animation: shine 4s infinite;
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) rotate(45deg);
+    }
+}
+
+.company-logo {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: white;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    letter-spacing: 4px;
+}
+
+.card-type {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.95);
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    margin-top: 3px;
+}
+
+/* Card Body */
+.card-body {
+    padding: 18px;
+    text-align: center;
+}
+
+.employee-photo {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #667eea;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.5);
+}
+
+.employee-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.employee-info h3 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: white;
+    margin: 0 0 5px 0;
+    letter-spacing: 1.5px;
+}
+
+.employee-info .role {
+    font-size: 0.8rem;
+    color: #667eea;
+    font-weight: 700;
+    margin: 4px 0;
+}
+
+.employee-info .department {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.65);
+    margin: 0;
+}
+
+.card-id {
+    margin-top: 12px;
+    padding: 6px 10px;
+    background: rgba(102, 126, 234, 0.15);
+    border-radius: 8px;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.85);
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1.5px;
+    border: 1px solid rgba(102, 126, 234, 0.3);
+}
+
+/* Stamp Animation - IMPROVED */
+.stamp {
+    position: absolute;
+    top: 50%;
+    right: -70px;
+    transform: translate(-50%, -50%) rotate(-18deg);
+    width: 100px;
+    height: 100px;
+    border: 5px solid rgba(3, 146, 53, 0.707);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: stampPunch 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    animation-delay: 5s;
+    opacity: 0;
+    background: rgba(231, 76, 60, 0.1);
+}
+
+@keyframes stampPunch {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(-18deg) scale(4);
+    }
+    60% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(-18deg) scale(0.85);
+    }
+    80% {
+        transform: translate(-50%, -50%) rotate(-18deg) scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(-18deg) scale(1);
+    }
+}
+
+.stamp-text {
+    text-align: center;
+    color: rgba(3, 146, 53, 0.707);
+    font-weight: 900;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    display: flex;
+    flex-direction: column;
+    transform: rotate(-18deg);
+    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.stamp-date {
+    font-size: 0.55rem;
+    margin-top: 2px;
+    font-weight: 800;
+}
+
+/* ===================================
+   RESPONSIVE DESIGN - MOBILE OPTIMIZED
+   =================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    #hero .id-card-container {
+        right: 30px;
+        top: 100px;
+    }
+    
+    .id-card {
+        width: 240px;
+    }
+}
+
+/* Mobile - Landscape (768px and below) */
+@media (max-width: 768px) {
+    /* ✅ SOLUTION 1: Position at TOP-RIGHT instead of bottom */
+    #hero .id-card-container {
+        position: absolute;
+        top: 80px; /* ✅ Changed from bottom to top */
+        bottom: auto;
+        right: 10px; /* Closer to edge */
+        left: auto;
+        z-index: 100;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    /* Hide when scrolling */
+    #hero .id-card-container.hidden {
+        opacity: 0;
+        transform: translateX(50px); /* Slide out to right */
+        pointer-events: none;
+    }
+    
+    .id-card {
+        width: 180px; /* Smaller size */
+    }
+    
+    .card-lanyard {
+        height: 25px;
+    }
+    
+    .company-logo {
+        font-size: 1.2rem;
+    }
+    
+    .employee-photo {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .card-body {
+        padding: 10px;
+    }
+    
+    .employee-info h3 {
+        font-size: 0.9rem;
+    }
+    
+    .employee-info .role {
+        font-size: 0.7rem;
+    }
+    
+    .stamp {
+        width: 70px;
+        height: 70px;
+        border-width: 3px;
+        right: -45px; /* Adjusted position */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    
+    .stamp-text {
+        font-size: 0.5rem; /* ✅ Smaller font */
+        letter-spacing: 0.5px; /* ✅ Tighter spacing */
+        line-height: 1.1; /* ✅ Compact lines */
+        padding: 2px; /* ✅ Internal padding */
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .stamp-text span {
+        display: block; /* Each text on new line */
+        font-size: 0.5rem; /* ✅ Match parent */
+    }
+    
+    .stamp-date {
+        font-size: 0.4rem; /* ✅ Even smaller date */
+        margin-top: 1px;
+        font-weight: 800;
+    }
+}
+
+
+/* Mobile - Portrait (Small) */
+@media (max-width: 480px) {
+    #hero .id-card-container {
+        bottom: 80px;
+        right: 10px;
+        transform: scale(0.85);
+    }
+    
+    .id-card {
+        width: 180px;
+    }
+    
+    .card-header {
+        padding: 10px;
+    }
+    
+    .card-body {
+        padding: 12px;
+    }
+    
+    .employee-photo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .stamp {
+        width: 60px; /* ✅ Smaller circle */
+        height: 60px;
+        border-width: 2px;
+        right: -40px;
+    }
+    
+    .stamp-text {
+        font-size: 0.45rem; /* ✅ Even smaller */
+        letter-spacing: 0.3px;
+    }
+    
+    .stamp-date {
+        font-size: 0.35rem; /* ✅ Tiny date */
+    }
+}
+
+/* Very Small Screens - Hide ID card but show notification */
+@media (max-width: 360px) {
+    #hero .id-card-container {
+        display: none;
+    }
+}
+.id-card.stamped {
+    animation: cardFloat 4s ease-in-out infinite, stampShake 0.5s ease-out;
 }

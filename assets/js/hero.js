@@ -14,7 +14,7 @@ class HeroSection {
         this.typingAnimationComplete = false;
         this.visitorCounter = null;
         this.statsAnimationTriggered = false;
-        
+
         // Bind methods to maintain context
         this.init = this.init.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
@@ -46,7 +46,10 @@ class HeroSection {
             this.setupAdminPanel();
             // Event listeners
             this.setupEventListeners();
-            
+            this.setupIDCardScrollHide(); // ✅ ADD THIS        
+        // ✅ Schedule stamp animation (will wait for user interaction if needed)
+            this.scheduleStampAnimation();
+        
             this.isInitialized = true;
             console.log('✅ Hero Section initialized successfully!');
             
@@ -135,6 +138,90 @@ initializeVisitorCounter() {
     // Initialize real visitor tracking
     this.setupRealVisitorTracking(counterElement);
 }
+
+/**
+ * Trigger stamp animation (Visual only - No sound)
+ */
+triggerStampAnimation() {
+    const stamp = document.querySelector('.stamp');
+    const idCard = document.querySelector('.id-card');
+    
+    if (!stamp || !idCard) {
+        console.warn('⚠️ Stamp or ID card element not found');
+        return;
+    }
+    
+    console.log('🎬 Triggering stamp animation...');
+    
+    // Add stamped class for visual effect
+    idCard.classList.add('stamped');
+    
+    console.log('✅ Stamp animation completed!');
+}
+
+/**
+ * Schedule stamp animation to appear after 5 seconds
+ */
+scheduleStampAnimation() {
+    const stampDelay = 5000; // 5 seconds - matches CSS animation
+    
+    console.log(`⏰ Stamp animation scheduled for ${stampDelay/1000} seconds from now...`);
+    
+    setTimeout(() => {
+        this.triggerStampAnimation();
+    }, stampDelay);
+}
+
+/**
+ * Setup ID card scroll hide on mobile
+ */
+setupIDCardScrollHide() {
+    // Only run on mobile
+    if (window.innerWidth > 768) {
+        console.log('✅ ID card scroll hide - Desktop mode (always visible)');
+        return;
+    }
+    
+    const idCardContainer = document.querySelector('.id-card-container');
+    const heroSection = document.querySelector('#hero');
+    
+    if (!idCardContainer || !heroSection) {
+        console.warn('⚠️ ID card or hero section not found');
+        return;
+    }
+    
+    console.log('📱 Setting up ID card scroll hide for mobile...');
+    
+    // Function to check if we're still in hero section
+    const checkHeroVisibility = () => {
+        const heroRect = heroSection.getBoundingClientRect();
+        const heroBottom = heroRect.bottom;
+        const windowHeight = window.innerHeight;
+        
+        // Hide card when hero section is mostly scrolled past
+        if (heroBottom < windowHeight * 0.3) {
+            idCardContainer.classList.add('hidden');
+            console.log('🙈 ID card hidden (scrolled past hero)');
+        } else {
+            idCardContainer.classList.remove('hidden');
+            console.log('👁️ ID card visible (in hero section)');
+        }
+    };
+    
+    // Listen to scroll events
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        // Debounce for performance
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(checkHeroVisibility, 10);
+    }, { passive: true });
+    
+    // Initial check
+    checkHeroVisibility();
+    
+    console.log('✅ ID card scroll hide enabled (mobile)');
+}
+
 
 setupRealVisitorTracking(counterElement) {
     // Generate unique session ID for this visitor

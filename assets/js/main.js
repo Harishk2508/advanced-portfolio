@@ -218,7 +218,8 @@ class SinglePagePortfolio {
         if (descriptionElement) {
             // FIXED: Update description with EXACT stats
             const updatedDescription = `
-                Passionate about creating intelligent solutions with Machine Learning,
+                Tech Trainee at <strong class="company-highlight">ZEAI Soft</strong>,
+                passionate about creating intelligent solutions with Machine Learning,
                 Natural Language Processing, and Deep Learning technologies.
                 ${this.statsData.leetcode} LeetCode problems solved and
                 ${this.statsData.events}+ competitions won with expertise in medical AI and research.
