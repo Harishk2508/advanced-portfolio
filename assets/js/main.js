@@ -218,9 +218,9 @@ class SinglePagePortfolio {
         if (descriptionElement) {
             // FIXED: Update description with EXACT stats
             const updatedDescription = `
-                Tech Trainee at <strong class="company-highlight">ZEAI Soft</strong>,
+                Systems Engineer at <strong class="company-highlight">TCS</strong>,
                 passionate about creating intelligent solutions with Machine Learning,
-                Natural Language Processing, and Deep Learning technologies.
+                Natural Language Processing, Deep Learning technologies and Mainframes.
                 ${this.statsData.leetcode} LeetCode problems solved and
                 ${this.statsData.events}+ competitions won with expertise in medical AI and research.
             `;
